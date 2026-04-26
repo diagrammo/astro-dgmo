@@ -12,7 +12,7 @@ describe('renderDgmoBlock', () => {
     expect(html).toContain('<svg');
     expect(html).not.toContain('astro-dgmo-pre');
     expect(html).not.toContain('astro-dgmo-copy');
-    expect(html).not.toContain('Open in online editor');
+    expect(html).not.toContain('astro-dgmo-open');
   });
 
   it('renders showcase mode with source + copy + editor link', async () => {
@@ -20,7 +20,7 @@ describe('renderDgmoBlock', () => {
     expect(html).toContain('astro-dgmo--showcase');
     expect(html).toContain('astro-dgmo-pre');
     expect(html).toContain('astro-dgmo-copy');
-    expect(html).toContain('Open in online editor');
+    expect(html).toContain('astro-dgmo-open');
     expect(html).toContain('online.diagrammo.app');
   });
 
@@ -63,16 +63,16 @@ describe('renderDgmoBlock', () => {
 
   it('honors noOpenInEditor', async () => {
     const { html } = await renderDgmoBlock(SAMPLE, 'showcase noOpenInEditor');
-    expect(html).not.toContain('Open in online editor');
+    expect(html).not.toContain('astro-dgmo-open');
   });
 
   it('honors noSource (showcase without source listing)', async () => {
     const { html } = await renderDgmoBlock(SAMPLE, 'showcase noSource');
     expect(html).toContain('astro-dgmo--showcase');
     expect(html).not.toContain('astro-dgmo-pre');
-    // Toolbar (which contains the open link) is suppressed when source is hidden,
-    // since the toolbar is part of the source-wrap surface.
-    expect(html).not.toContain('Open in online editor');
+    // Toolbar (which contains the open + copy buttons) is suppressed when
+    // source is hidden, since the toolbar is part of the source-wrap surface.
+    expect(html).not.toContain('astro-dgmo-toolbar');
   });
 
   it('uses custom editorBaseUrl', async () => {

@@ -107,21 +107,22 @@ function renderShowcase(
 
   const sourceHtml = opts.showSource ? renderSource(source) : '';
 
-  const toolbarParts: string[] = [];
-  toolbarParts.push(
-    `<span class="astro-dgmo-toolbar-label">dgmo</span>`
-  );
-  if (opts.showOpenInEditor && editorUrl) {
-    toolbarParts.push(
-      `<a href="${escapeAttr(editorUrl)}" target="_blank" rel="noopener noreferrer" class="astro-dgmo-open-link">Open in online editor →</a>`
-    );
-  }
-  const toolbar = opts.showSource
-    ? `<div class="astro-dgmo-toolbar">${toolbarParts.join('')}</div>`
+  // Toolbar: "DGMO" label on the left; icon-only action buttons on the right.
+  // Open-in-editor uses an external-link (box+arrow) icon; copy uses a
+  // clipboard icon. Both live inline with the label so the showcase header
+  // stays a single row.
+  const openButton = opts.showOpenInEditor && editorUrl
+    ? `<a href="${escapeAttr(editorUrl)}" target="_blank" rel="noopener noreferrer" class="astro-dgmo-toolbar-btn astro-dgmo-open" aria-label="Open in online editor" title="Open in online editor">
+         <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+           <path d="M9.5 2.5h4v4"/>
+           <path d="M13.5 2.5 7 9"/>
+           <path d="M12.5 9.5v3a1 1 0 0 1-1 1h-8a1 1 0 0 1-1-1v-8a1 1 0 0 1 1-1h3"/>
+         </svg>
+       </a>`
     : '';
 
-  const copyButton = opts.showCopy && opts.showSource
-    ? `<button type="button" class="astro-dgmo-copy" aria-label="Copy to clipboard" data-astro-dgmo-source="${escapeAttr(source)}">
+  const copyButton = opts.showCopy
+    ? `<button type="button" class="astro-dgmo-toolbar-btn astro-dgmo-copy" aria-label="Copy to clipboard" title="Copy to clipboard" data-astro-dgmo-source="${escapeAttr(source)}">
          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
            <rect x="5.5" y="5.5" width="8" height="8" rx="1.5"/>
            <path d="M10.5 5.5V3a1.5 1.5 0 0 0-1.5-1.5H3A1.5 1.5 0 0 0 1.5 3v6A1.5 1.5 0 0 0 3 10.5h2.5"/>
@@ -129,12 +130,20 @@ function renderShowcase(
        </button>`
     : '';
 
+  const toolbarActions = openButton || copyButton
+    ? `<div class="astro-dgmo-toolbar-actions">${openButton}${copyButton}</div>`
+    : '';
+
+  const toolbar = opts.showSource
+    ? `<div class="astro-dgmo-toolbar"><span class="astro-dgmo-toolbar-label">dgmo</span>${toolbarActions}</div>`
+    : '';
+
   return (
     `<${Wrapper} class="${escapeAttr(opts.className)} astro-dgmo--showcase">` +
     captionHtml +
     `<div class="astro-dgmo-card">` +
     (opts.showSource
-      ? `<div class="astro-dgmo-source-wrap">${toolbar}<div class="astro-dgmo-source-inner">${sourceHtml}${copyButton}</div></div>`
+      ? `<div class="astro-dgmo-source-wrap">${toolbar}<div class="astro-dgmo-source-inner">${sourceHtml}</div></div>`
       : '') +
     `<div class="astro-dgmo-svg">${svg}</div>` +
     `</div>` +

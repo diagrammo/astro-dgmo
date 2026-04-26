@@ -128,12 +128,14 @@ The plugin emits semantic class names and inline syntax-highlight styles only. B
 .astro-dgmo-svg { /* svg container */ }
 .astro-dgmo-card { /* showcase card */ }
 .astro-dgmo-source-wrap, .astro-dgmo-source-inner { /* source block */ }
-.astro-dgmo-toolbar { /* "dgmo" label + open link */ }
+.astro-dgmo-toolbar { /* "dgmo" label + action icons (single row) */ }
 .astro-dgmo-toolbar-label { /* "dgmo" tag */ }
-.astro-dgmo-open-link { /* "Open in online editor" link */ }
-.astro-dgmo-pre, .astro-dgmo-code { /* highlighted source */ }
-.astro-dgmo-copy { /* copy button */ }
+.astro-dgmo-toolbar-actions { /* container for the icon buttons */ }
+.astro-dgmo-toolbar-btn { /* shared style for both icon buttons */ }
+.astro-dgmo-open { /* "Open in online editor" external-link icon */ }
+.astro-dgmo-copy { /* copy-to-clipboard icon */ }
 .astro-dgmo-copy--success { /* copy button after a successful copy */ }
+.astro-dgmo-pre, .astro-dgmo-code { /* highlighted source */ }
 ```
 
 The SVG output also includes a small inline script (~600 bytes) that tightens each diagram's `viewBox` to its content bounds and wires up copy buttons. If your site forbids inline scripts via CSP, ignore this script — diagrams still render, but layout may have extra whitespace and copy buttons won't function.
