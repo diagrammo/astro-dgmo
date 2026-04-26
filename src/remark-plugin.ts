@@ -1,5 +1,5 @@
 import { visit } from 'unist-util-visit';
-import type { Root, Code, Html } from 'mdast';
+import type { Root, Code, Html, Parent } from 'mdast';
 import { renderDgmoBlock } from './render-block.js';
 import type { DgmoIntegrationOptions } from './options.js';
 
@@ -10,6 +10,12 @@ interface FencePayload {
   meta: string | null;
 }
 
+interface Target {
+  parent: Parent;
+  index: number;
+  payload: FencePayload;
+}
+
 /**
  * Remark plugin that finds ```dgmo fenced code blocks and replaces them with
  * an HTML node containing the rendered SVG (and optional showcase chrome).
@@ -18,15 +24,23 @@ interface FencePayload {
  * backticks). The `meta` field is everything that follows on the same line,
  * which we use to allow per-block options like ```dgmo showcase palette=catppuccin.
  *
+ * Replaces the code node entirely (parent.children[index] = newNode) rather
+ * than mutating it in place — otherwise downstream rehype/Shiki plugins still
+ * see the lingering `lang: 'dgmo'` and `value: '...source...'` properties and
+ * may re-process the block as a plaintext code listing, clobbering our
+ * syntax-highlighted output.
+ *
  * Async-safe: replacement is collected first, applied after parsing finishes.
  */
 export default function remarkDgmo(options: RemarkDgmoOptions = {}) {
   return async function transformer(tree: Root): Promise<void> {
-    const targets: Array<{ node: Code; payload: FencePayload }> = [];
-    visit(tree, 'code', (node: Code) => {
+    const targets: Target[] = [];
+    visit(tree, 'code', (node: Code, index, parent) => {
       if (node.lang !== 'dgmo') return;
+      if (!parent || index === undefined) return;
       targets.push({
-        node,
+        parent: parent as Parent,
+        index,
         payload: { source: node.value, meta: node.meta ?? null },
       });
     });
@@ -43,12 +57,14 @@ export default function remarkDgmo(options: RemarkDgmoOptions = {}) {
       )
     );
 
-    for (let i = 0; i < targets.length; i++) {
-      const out: Html = {
-        type: 'html',
-        value: rendered[i].html,
-      };
-      Object.assign(targets[i].node, out);
+    // Replace in reverse index order per parent so earlier replacements don't
+    // shift indices of later targets in the same parent. (Visit walks in tree
+    // order, so within a single parent's children targets are also ordered;
+    // reversing is sufficient.)
+    for (let i = targets.length - 1; i >= 0; i--) {
+      const t = targets[i];
+      const html: Html = { type: 'html', value: rendered[i].html };
+      t.parent.children[t.index] = html;
     }
   };
 }

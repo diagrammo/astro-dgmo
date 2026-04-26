@@ -158,5 +158,11 @@ function renderSource(source: string): string {
       return `<span style="${escapeAttr(styleStr)}">${text}</span>`;
     })
     .join('');
-  return `<pre class="astro-dgmo-pre"><code class="astro-dgmo-code">${inner}</code></pre>`;
+  // NOTE: We deliberately use <pre><span> rather than <pre><code> here.
+  // Astro's Shiki rehype plugin walks the hast and post-processes any
+  // <pre><code> pair (even ones we emit from a remark plugin via raw HTML),
+  // which clobbers our pre-rendered highlight spans with a plaintext
+  // listing. Using a <span> as the inner element bypasses Shiki's matcher
+  // while preserving preformatted-text semantics on the outer <pre>.
+  return `<pre class="astro-dgmo-pre"><span class="astro-dgmo-code">${inner}</span></pre>`;
 }
