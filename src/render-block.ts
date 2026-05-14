@@ -1,6 +1,15 @@
-import { render, encodeDiagramUrl } from '@diagrammo/dgmo';
+import {
+  render,
+  encodeDiagramUrl,
+  palettes,
+  type PaletteConfig,
+} from '@diagrammo/dgmo';
 import { highlightDgmo, NORD_ROLE_STYLES } from '@diagrammo/dgmo/highlight';
 import { resolveOptions, type DgmoIntegrationOptions } from './options.js';
+
+function resolvePalette(name: string): PaletteConfig {
+  return Object.values(palettes).find((p) => p.id === name) ?? palettes.nord;
+}
 import { parseFenceMeta } from './fence-meta.js';
 import { normalizeSvg } from './svg-normalize.js';
 import { escapeHtml, escapeAttr } from './escape.js';
@@ -45,16 +54,17 @@ export async function renderDgmoBlock(
   };
 
   const trimmed = source.trim();
+  const palette = resolvePalette(opts.palette);
   const { svg: rawSvg, diagnostics } = await render(trimmed, {
-    palette: opts.palette,
+    palette,
     theme: opts.theme === 'transparent' ? 'transparent' : opts.theme,
   });
   const svg = normalizeSvg(rawSvg);
 
   let editorUrl: string | undefined;
   if (opts.showOpenInEditor) {
-    const encoded = encodeDiagramUrl(trimmed, { baseUrl: opts.editorBaseUrl });
-    editorUrl = encoded.url ?? opts.editorBaseUrl;
+    const url = encodeDiagramUrl(trimmed, { baseUrl: opts.editorBaseUrl });
+    editorUrl = url ?? opts.editorBaseUrl;
   }
 
   const html = opts.mode === 'showcase'
