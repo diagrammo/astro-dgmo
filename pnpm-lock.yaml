@@ -8,25 +8,13 @@ importers:
 
   .:
     dependencies:
-      '@lezer/common':
-        specifier: ^1.5.1
-        version: 1.5.2
-      '@lezer/highlight':
-        specifier: ^1.2.3
-        version: 1.2.3
-      '@lezer/lr':
-        specifier: ^1.4.8
-        version: 1.4.10
-      unist-util-visit:
-        specifier: ^5.0.0
-        version: 5.1.0
+      remark-dgmo:
+        specifier: file:../remark-dgmo
+        version: file:../remark-dgmo(@diagrammo/dgmo@0.15.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
     devDependencies:
       '@diagrammo/dgmo':
         specifier: ^0.15.0
         version: 0.15.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
-      '@types/mdast':
-        specifier: ^4.0.4
-        version: 4.0.4
       '@types/node':
         specifier: ^22.10.0
         version: 22.19.17
@@ -1568,6 +1556,12 @@ packages:
 
   rehype@13.0.2:
     resolution: {integrity: sha512-j31mdaRFrwFRUIlxGeuPXXKWQxet52RBQRvCmzl5eCefn/KGbomK5GMHNMsOJf55fgo3qw5tST5neDuarDYR2A==}
+
+  remark-dgmo@file:../remark-dgmo:
+    resolution: {directory: ../remark-dgmo, type: directory}
+    engines: {node: '>=20.6'}
+    peerDependencies:
+      '@diagrammo/dgmo': ^0.15.0
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
@@ -3698,6 +3692,14 @@ snapshots:
       rehype-parse: 9.0.1
       rehype-stringify: 10.0.1
       unified: 11.0.5
+
+  remark-dgmo@file:../remark-dgmo(@diagrammo/dgmo@0.15.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+    dependencies:
+      '@diagrammo/dgmo': 0.15.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+      '@lezer/common': 1.5.2
+      '@lezer/highlight': 1.2.3
+      '@lezer/lr': 1.4.10
+      unist-util-visit: 5.1.0
 
   remark-gfm@4.0.1:
     dependencies:
