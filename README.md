@@ -130,6 +130,19 @@ Recognized tokens:
 | `copy` / `noCopy` | Force copy button on/off |
 | `openInEditor` / `noOpenInEditor` | Force editor link on/off |
 
+## Working reference site
+
+[`tests/fixture/`](./tests/fixture/) is a complete minimal Astro 6 site running this integration. It's the smallest correct configuration we know of, with the two non-obvious gotchas (manual `import 'remark-dgmo/client.css'` in a global layout, and no `@astrojs/mdx` needed for plain `.md`) called out inline. Copy [`tests/fixture/astro.config.mjs`](./tests/fixture/astro.config.mjs) + [`tests/fixture/src/layouts/Base.astro`](./tests/fixture/src/layouts/Base.astro) as a starting template.
+
+```bash
+git clone https://github.com/diagrammo/astro-dgmo
+cd astro-dgmo
+pnpm install && pnpm build
+cd tests/fixture && pnpm install --no-frozen-lockfile && pnpm exec astro dev
+```
+
+Opens at http://localhost:4321 with four example diagrams (plain auto, colored tag sequence, showcase mode, per-block override) and a `data-theme` toggle for verifying the dark/light swap. See [`tests/fixture/README.md`](./tests/fixture/README.md) for details.
+
 ## Showcase mode
 
 For docs sites and tutorials where you want the source visible alongside the rendered diagram (with copy and "Open in online editor" affordances), set `mode: 'showcase'` globally — every `dgmo` block becomes a rich showcase:

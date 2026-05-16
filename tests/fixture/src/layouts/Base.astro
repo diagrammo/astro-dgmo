@@ -1,0 +1,60 @@
+---
+// Global layout wrapper. Two responsibilities:
+//
+//   1. Import `remark-dgmo/client.css`. Astro 6's IntegrationHook has
+//      no programmatic stylesheet injection, so this is the documented
+//      manual step from the astro-dgmo README — without it, light/dark
+//      diagram wrappers both render at the same time.
+//   2. Provide a `data-theme` toggle on `<html>` so the color-mode swap
+//      can be eyeballed against `[data-theme="dark"]`-keyed CSS.
+import 'remark-dgmo/client.css';
+
+interface Props {
+  title?: string;
+}
+const { title = 'astro-dgmo fixture' } = Astro.props;
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <style is:global>
+      :root { color-scheme: light; }
+      :root[data-theme='dark'] { color-scheme: dark; }
+      body {
+        font-family: system-ui, sans-serif;
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem 4rem;
+        background: white;
+        color: #111;
+      }
+      :root[data-theme='dark'] body { background: #111; color: #eee; }
+      button.theme-toggle {
+        position: fixed;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.4rem 0.8rem;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="theme-toggle" type="button" id="theme-toggle">
+      Toggle dark mode
+    </button>
+    <slot />
+    <script is:inline>
+      const btn = document.getElementById('theme-toggle');
+      btn?.addEventListener('click', () => {
+        const root = document.documentElement;
+        const next =
+          root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+      });
+    </script>
+  </body>
+</html>
