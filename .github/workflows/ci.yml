@@ -26,8 +26,11 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
-      - name: Test
+      - name: Unit tests
         run: pnpm test
 
       - name: Build
         run: pnpm build
+
+      - name: Fixture build (e2e)
+        run: pnpm test:e2e

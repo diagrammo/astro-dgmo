@@ -50,6 +50,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
+    "test:e2e": "pnpm build && cd tests/fixture && pnpm install --no-frozen-lockfile && pnpm exec astro build && node ../../scripts/assert-build-output.mjs",
     "prepublishOnly": "pnpm build && pnpm test"
   },
   "peerDependencies": {
