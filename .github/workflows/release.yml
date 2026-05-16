@@ -37,17 +37,31 @@ jobs:
             exit 1
           fi
 
+      - name: Guard against dev-loop leakage
+        run: |
+          if node -p 'JSON.stringify(require("./package.json"))' | grep -qE '"(remark-dgmo|astro-dgmo)":\s*"(file:|link:)'; then
+            echo "::error::package.json contains file:/link: deps. Swap to ^x.y.z before tagging."
+            exit 1
+          fi
+          if node -p 'Object.keys(require("./package.json").pnpm ?? {}).join(",")' | grep -q overrides; then
+            echo "::error::pnpm.overrides leaked into package.json — see RELEASE_CHECKLIST.md"
+            exit 1
+          fi
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Typecheck
         run: pnpm typecheck
 
-      - name: Test
+      - name: Unit tests
         run: pnpm test
 
       - name: Build
         run: pnpm build
+
+      - name: Fixture build (e2e)
+        run: pnpm test:e2e
 
       - name: Publish to npm
         # Auth via OIDC (Trusted Publishers configured on npmjs.com).
