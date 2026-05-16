@@ -30,7 +30,7 @@ No API changes. No breaking changes to fenced-block syntax or per-block options.
 ## Overview
 
 ```dgmo
-chart: sequence
+sequence
 Client -POST /login-> API
 API -validate-> Auth
 Auth -JWT-> API
@@ -66,10 +66,10 @@ That's it. Anywhere in your Markdown or MDX content, write a fenced block with t
 
 ````markdown
 ```dgmo
-chart: pie
-TypeScript: 45
-Python: 30
-Rust: 25
+pie Language Mix
+TypeScript 45
+Python     30
+Rust       25
 ```
 ````
 
@@ -113,7 +113,7 @@ Append options to the fence info string. Tokens are space-separated; values may 
 
 ````markdown
 ```dgmo showcase title="Login flow" palette=catppuccin theme=light
-chart: sequence
+sequence
 A -> B
 ```
 ````
@@ -142,10 +142,14 @@ Or opt-in per block:
 
 ````markdown
 ```dgmo showcase
-chart: kanban
-Backlog: Item 1, Item 2
-Doing: Item 3
-Done: Item 4
+kanban
+[Backlog](blue)
+  Draft RFC
+  Plan migration
+[Doing](yellow)
+  Wire auth flow
+[Done](green)
+  Hello world
 ```
 ````
 

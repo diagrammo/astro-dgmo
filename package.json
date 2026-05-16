@@ -1,6 +1,6 @@
 {
   "name": "astro-dgmo",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Astro integration to render DGMO diagrams from fenced code blocks at build time. Powered by @diagrammo/dgmo.",
   "license": "MIT",
   "repository": {
@@ -57,7 +57,7 @@
     "astro": "^4.0.0 || ^5.0.0 || ^6.0.0"
   },
   "dependencies": {
-    "remark-dgmo": "^0.1.0"
+    "remark-dgmo": "^0.1.2"
   },
   "devDependencies": {
     "@diagrammo/dgmo": "^0.15.0",
