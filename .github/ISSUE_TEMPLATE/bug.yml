@@ -1,0 +1,37 @@
+name: Bug report
+description: Report a problem with astro-dgmo
+title: "[Bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Triage hint:** if your symptom looks like one of these, you may be in the wrong repo —
+        - "Diagram looks wrong regardless of host site" → file in [`dgmo`](https://github.com/diagrammo/dgmo/issues)
+        - "Fenced block isn't being processed at all" → file in [`remark-dgmo`](https://github.com/diagrammo/remark-dgmo/issues)
+        - "Color-mode toggle doesn't switch diagrams" → file in [`remark-dgmo`](https://github.com/diagrammo/remark-dgmo/issues) (the CSS lives there)
+        - "`docusaurus build` errors" → file in [`docusaurus-plugin-dgmo`](https://github.com/diagrammo/docusaurus-plugin-dgmo/issues)
+        We'll re-route mistakes silently — no need to repost.
+  - type: textarea
+    id: symptom
+    attributes:
+      label: What happened?
+      description: Brief description of the actual vs expected behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimum reproduction
+      description: A minimal `astro.config.mjs` plus a markdown snippet that reproduces the bug.
+      render: markdown
+    validations:
+      required: true
+  - type: input
+    id: versions
+    attributes:
+      label: Versions
+      description: "astro-dgmo, remark-dgmo, @diagrammo/dgmo, astro, Node"
+      placeholder: "astro-dgmo 0.3.0; remark-dgmo 0.1.0; @diagrammo/dgmo 0.15.2; astro 6.1; node 20.10"
+    validations:
+      required: true
