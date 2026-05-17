@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v5
@@ -64,9 +63,14 @@ jobs:
         run: pnpm test:e2e
 
       - name: Publish to npm
-        # Auth via OIDC (Trusted Publishers configured on npmjs.com).
-        # Node 24 ships with npm 11.x which has trusted-publisher support.
-        run: npm publish --access public --provenance
+        # Auth via NODE_AUTH_TOKEN sourced from the org-level NPM_TOKEN
+        # secret (granular access token covering all @diagrammo/* +
+        # sibling wrapper packages). Provenance is off — switching from
+        # OIDC trusted-publishing to a shared token in exchange for
+        # not having to pre-configure each new package on npmjs.com.
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npm publish --access public
 
       - name: Wait for npm propagation
         run: |
