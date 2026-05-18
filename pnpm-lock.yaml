@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       remark-dgmo:
-        specifier: ^0.1.5
-        version: 0.1.5(@diagrammo/dgmo@0.15.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        specifier: ^0.2.2
+        version: 0.2.2(@diagrammo/dgmo@0.15.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
     devDependencies:
       '@diagrammo/dgmo':
         specifier: ^0.15.0
@@ -1073,6 +1073,9 @@ packages:
     resolution: {integrity: sha512-/veY75JbMK4j1yjvuUxuVsiS/hr/4iHs9FTT6cgTexxdE0Ly/glccBAkloH/DofkjRbZU3bnoj38mOmhkZ0lHw==}
     engines: {node: '>=12'}
 
+  estree-util-value-to-estree@3.5.0:
+    resolution: {integrity: sha512-aMV56R27Gv3QmfmF1MY12GWkGzzeAezAX+UplqHVASfjc9wNzI/X6hC0S9oxq61WT4aQesLGslWP9tKk6ghRZQ==}
+
   estree-walker@2.0.2:
     resolution: {integrity: sha512-Rfkk/Mp/DL7JVje3u18FxFujQlTNR2q6QfMSMB7AvCBx91NGj/ba3kCfza0f6dVDbw7YlRf/nDrn7pQrCCyQ/w==}
 
@@ -1562,8 +1565,8 @@ packages:
   rehype@13.0.2:
     resolution: {integrity: sha512-j31mdaRFrwFRUIlxGeuPXXKWQxet52RBQRvCmzl5eCefn/KGbomK5GMHNMsOJf55fgo3qw5tST5neDuarDYR2A==}
 
-  remark-dgmo@0.1.5:
-    resolution: {integrity: sha512-ycwR053Mjv6jVQFoZvgEtxXhXXeVkl0yzz/uJ68e+QMlq5wwef91jsEhwGdTUf/WSNWEDLSvbmZ5rPCOw1M3Ww==}
+  remark-dgmo@0.2.2:
+    resolution: {integrity: sha512-cFKsa7YXylFdKTh0tyCF1lEL+rVi1918BsPgW9Da84AH/w31lWhDNf9A+yE7LM4YoO+aBvO67eeyd/oseOwEVQ==}
     engines: {node: '>=20.6'}
     peerDependencies:
       '@diagrammo/dgmo': ^0.15.0
@@ -2977,6 +2980,10 @@ snapshots:
 
   escape-string-regexp@5.0.0: {}
 
+  estree-util-value-to-estree@3.5.0:
+    dependencies:
+      '@types/estree': 1.0.8
+
   estree-walker@2.0.2: {}
 
   estree-walker@3.0.3:
@@ -3694,12 +3701,13 @@ snapshots:
       rehype-stringify: 10.0.1
       unified: 11.0.5
 
-  remark-dgmo@0.1.5(@diagrammo/dgmo@0.15.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.2.2(@diagrammo/dgmo@0.15.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
       '@diagrammo/dgmo': 0.15.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
+      estree-util-value-to-estree: 3.5.0
       unist-util-visit: 5.1.0
 
   remark-gfm@4.0.1:
