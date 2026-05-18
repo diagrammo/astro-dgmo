@@ -8,7 +8,6 @@ purposes:
    [`src/layouts/Base.astro`](./src/layouts/Base.astro) are the
    smallest working configuration. They cover the two non-obvious
    gotchas:
-
    - **Just add `integrations: [dgmo()]`.** No `@astrojs/mdx` needed
      for plain `.md` — Astro's built-in markdown processor handles
      fenced blocks through the integration's remark plugin.
@@ -23,7 +22,6 @@ purposes:
 2. **Test fixture for plugin development.**
    [`src/pages/index.md`](./src/pages/index.md) exercises four
    shapes, mirroring `docusaurus-plugin-dgmo`'s fixture:
-
    - Plain block under `colorMode: 'auto'` — dual-render with the
      `data-theme` toggle swapping between the two SVGs
    - Colored sequence diagram with `tag` blocks — exercises palette

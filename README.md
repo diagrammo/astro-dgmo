@@ -76,16 +76,16 @@ A -> B
 ```
 ````
 
-| Token | Effect |
-|---|---|
-| `diagram` / `showcase` | Set `mode` for this block |
-| `palette=<name>` | Override palette |
-| `theme=light` / `theme=dark` / `theme=transparent` | Override theme (single-render only) |
-| `colorMode=auto` / `colorMode=light` / `colorMode=dark` | Override color-mode strategy |
-| `title="…"` | Add a caption (`<figcaption>`) |
-| `source` / `noSource` | Force source listing on/off |
-| `copy` / `noCopy` | Force copy button on/off |
-| `openInEditor` / `noOpenInEditor` | Force editor link on/off |
+| Token                                                   | Effect                              |
+| ------------------------------------------------------- | ----------------------------------- |
+| `diagram` / `showcase`                                  | Set `mode` for this block           |
+| `palette=<name>`                                        | Override palette                    |
+| `theme=light` / `theme=dark` / `theme=transparent`      | Override theme (single-render only) |
+| `colorMode=auto` / `colorMode=light` / `colorMode=dark` | Override color-mode strategy        |
+| `title="…"`                                             | Add a caption (`<figcaption>`)      |
+| `source` / `noSource`                                   | Force source listing on/off         |
+| `copy` / `noCopy`                                       | Force copy button on/off            |
+| `openInEditor` / `noOpenInEditor`                       | Force editor link on/off            |
 
 See the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo) for the full option matrix.
 
@@ -113,9 +113,15 @@ A small client script (~600 bytes) is injected via `injectScript('page', …)`. 
 The shipped `remark-dgmo/client.css` keys on `[data-theme="dark"]`. For Tailwind-style sites that use a `.dark` class on `<html>`, don't import that stylesheet — inline these three rules in your own CSS instead:
 
 ```css
-.dgmo-dark { display: none; }
-html.dark .dgmo-light { display: none; }
-html.dark .dgmo-dark  { display: block; }
+.dgmo-dark {
+  display: none;
+}
+html.dark .dgmo-light {
+  display: none;
+}
+html.dark .dgmo-dark {
+  display: block;
+}
 ```
 
 For other selectors (`data-color-scheme="dark"`, `:root[data-mode="dark"]`, etc.), same three rules with the selector swapped.

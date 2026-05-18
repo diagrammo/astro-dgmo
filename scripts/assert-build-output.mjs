@@ -21,7 +21,13 @@
 //
 // Exit codes: 0 on pass, 1 on any failure.
 
-import { readFileSync, statSync, readdirSync, writeFileSync, existsSync } from 'node:fs';
+import {
+  readFileSync,
+  statSync,
+  readdirSync,
+  writeFileSync,
+  existsSync,
+} from 'node:fs';
 import { join, resolve } from 'node:path';
 import { gzipSync } from 'node:zlib';
 
@@ -51,15 +57,17 @@ if (!headMatch) fail('built HTML has no <head> section');
 const head = headMatch[1];
 
 const styleBlocks = [...head.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map(
-  m => m[1]
+  (m) => m[1]
 );
 if (styleBlocks.length === 0) {
   fail('built HTML has no inline <style> blocks in <head>');
 }
 const allStyleText = styleBlocks.join('\n');
-if (!/\.dgmo-dark\s*,?\s*\[data-theme=["']?dark["']?\]\s*\.dgmo-light\s*\{[^}]*display\s*:\s*none/.test(
-  allStyleText
-)) {
+if (
+  !/\.dgmo-dark\s*,?\s*\[data-theme=["']?dark["']?\]\s*\.dgmo-light\s*\{[^}]*display\s*:\s*none/.test(
+    allStyleText
+  )
+) {
   fail(
     'inlined <style> blocks do not contain the remark-dgmo/client.css color-mode rules. ' +
       'Did the user forget `import "remark-dgmo/client.css"` in a global layout?'
@@ -77,10 +85,8 @@ if (!existsSync(ASSETS)) {
     `::warning::no dist/_astro dir found — astro emitted zero page chunks. Sentinel/byte checks skipped.`
   );
 } else {
-  const allChunks = readdirSync(ASSETS).filter(f => f.endsWith('.js'));
-  const referenced = allChunks.filter(f =>
-    html.includes(`/_astro/${f}`)
-  );
+  const allChunks = readdirSync(ASSETS).filter((f) => f.endsWith('.js'));
+  const referenced = allChunks.filter((f) => html.includes(`/_astro/${f}`));
 
   if (referenced.length === 0) {
     console.warn(
@@ -95,7 +101,9 @@ if (!existsSync(ASSETS)) {
         );
       }
     }
-    console.log(`✓ ${referenced.length} per-page JS chunks free of jsdom sentinel`);
+    console.log(
+      `✓ ${referenced.length} per-page JS chunks free of jsdom sentinel`
+    );
 
     const totalGzipped = referenced.reduce(
       (acc, chunk) => acc + gzipSync(readFileSync(join(ASSETS, chunk))).length,
@@ -105,7 +113,10 @@ if (!existsSync(ASSETS)) {
       writeFileSync(
         BASELINE,
         JSON.stringify(
-          { totalGzippedBytes: totalGzipped, capturedAt: new Date().toISOString() },
+          {
+            totalGzippedBytes: totalGzipped,
+            capturedAt: new Date().toISOString(),
+          },
           null,
           2
         )
