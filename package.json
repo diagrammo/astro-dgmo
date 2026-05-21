@@ -62,14 +62,14 @@
     "prepublishOnly": "pnpm build && pnpm test"
   },
   "peerDependencies": {
-    "@diagrammo/dgmo": "^0.15.0",
+    "@diagrammo/dgmo": "^0.16.0",
     "astro": "^4.0.0 || ^5.0.0 || ^6.0.0"
   },
   "dependencies": {
-    "remark-dgmo": "^0.2.2"
+    "remark-dgmo": "^0.2.4"
   },
   "devDependencies": {
-    "@diagrammo/dgmo": "^0.15.0",
+    "@diagrammo/dgmo": "^0.16.0",
     "@eslint/js": "^10.0.1",
     "@types/node": "^22.10.0",
     "astro": "^6.1.10",
