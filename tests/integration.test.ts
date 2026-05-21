@@ -9,11 +9,11 @@ describe('astro-dgmo integration shim', () => {
     expect(integration.hooks['astro:config:setup']).toBeInstanceOf(Function);
   });
 
-  it('registers remark-dgmo via updateConfig and injects the client script', () => {
+  it('registers remark-dgmo via updateConfig and injects the client script', async () => {
     const integration = dgmoIntegration({ mode: 'showcase' });
     const updateConfig = vi.fn();
     const injectScript = vi.fn();
-    integration.hooks['astro:config:setup']!({
+    await integration.hooks['astro:config:setup']!({
       updateConfig,
       injectScript,
     } as never);
@@ -37,13 +37,13 @@ describe('astro-dgmo integration shim', () => {
     expect(code.length).toBeGreaterThan(0);
   });
 
-  it('preserves user-supplied legacyClassNames in addition to the astro-dgmo aliases', () => {
+  it('preserves user-supplied legacyClassNames in addition to the astro-dgmo aliases', async () => {
     const integration = dgmoIntegration({
       legacyClassNames: ['custom-alias'],
     });
     const updateConfig = vi.fn();
     const injectScript = vi.fn();
-    integration.hooks['astro:config:setup']!({
+    await integration.hooks['astro:config:setup']!({
       updateConfig,
       injectScript,
     } as never);
