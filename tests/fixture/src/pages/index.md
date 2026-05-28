@@ -34,9 +34,9 @@ tag Layer as l
   Data red
 
 User is an actor
-WebApp | l: Frontend
-API | l: Backend
-MapDB is a database | l: Data
+WebApp l: Frontend
+API l: Backend
+MapDB is a database l: Data
 
 User -Search nearby loot-> WebApp
 WebApp -GET /loot?lat&lon-> API
