@@ -9,12 +9,12 @@ importers:
   .:
     dependencies:
       remark-dgmo:
-        specifier: ^0.3.0
-        version: 0.3.0(@diagrammo/dgmo@0.18.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        specifier: ^0.3.1
+        version: 0.3.1(@diagrammo/dgmo@0.20.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
     devDependencies:
       '@diagrammo/dgmo':
-        specifier: ^0.18.0
-        version: 0.18.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+        specifier: ^0.20.0
+        version: 0.20.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.4.0(jiti@2.7.0))
@@ -153,8 +153,8 @@ packages:
   '@dagrejs/graphlib@4.0.1':
     resolution: {integrity: sha512-IvcV6FduIIAmLwnH+yun+QtV36SC7mERqa86aClNqmMN09WhmPPYU8ckHrZBozErf+UvHPWOTJYaGYiIcs0DgA==}
 
-  '@diagrammo/dgmo@0.18.0':
-    resolution: {integrity: sha512-hW+82xWTfi1H3RU6nX0+wvw/5uNDlHr3aO2SBQ7DUy9uCnsUBAm6cXsH1TM3ZNPqESn5Ca/rx5W3gK6KNg+e9A==}
+  '@diagrammo/dgmo@0.20.0':
+    resolution: {integrity: sha512-uuDVFWNZgs4OD4F/MrpukYCZTKbnbqYnLJb13v9lgmHZWrJLkTZ0gJDMAE2bkFZsEfu6ZerwKWeIByetz6iA5g==}
     engines: {node: '>=20.6'}
     hasBin: true
     peerDependencies:
@@ -1282,6 +1282,9 @@ packages:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
 
+  commander@2.20.3:
+    resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
+
   commander@4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
@@ -1349,6 +1352,10 @@ packages:
 
   d3-format@3.1.2:
     resolution: {integrity: sha512-AJDdYOdnyRDV5b6ArilzCPPwc1ejkHcoyFarqlPqT7zRYjhavcT3uSrqcMvsgh2CgoPbK3RCwyHaVyxYcP2Arg==}
+    engines: {node: '>=12'}
+
+  d3-geo@3.1.1:
+    resolution: {integrity: sha512-637ln3gXKXOwhalDzinUgY83KzNWZRKbYubaG+fGVuc/dxO64RRljtCTnf5ecMyE1RIdtqpkVcq0IbtU2S8j2Q==}
     engines: {node: '>=12'}
 
   d3-hierarchy@3.1.2:
@@ -2151,11 +2158,11 @@ packages:
   rehype@13.0.2:
     resolution: {integrity: sha512-j31mdaRFrwFRUIlxGeuPXXKWQxet52RBQRvCmzl5eCefn/KGbomK5GMHNMsOJf55fgo3qw5tST5neDuarDYR2A==}
 
-  remark-dgmo@0.3.0:
-    resolution: {integrity: sha512-6guQ+3ZYSt0oeICfeebU3VVey0A4hX5G224FETRuw5XVOgIG94+5BtRCNrtKM4ubHw5LPDbBcQAweziSLNWcTA==}
+  remark-dgmo@0.3.1:
+    resolution: {integrity: sha512-lAgnMQtR5JwxHFOVLQBc0TZf7xGqpWGuisWdhaK+rEwINeHmiz5Jd4/53ye8EBD38mpKTRVLHP47VdVimHnpRw==}
     engines: {node: '>=20.6'}
     peerDependencies:
-      '@diagrammo/dgmo': ^0.18.0
+      '@diagrammo/dgmo': ^0.20.0
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
@@ -2314,6 +2321,10 @@ packages:
 
   tldts@7.0.28:
     resolution: {integrity: sha512-+Zg3vWhRUv8B1maGSTFdev9mjoo8Etn2Ayfs4cnjlD3CsGkxXX4QyW3j2WJ0wdjYcYmy7Lx2RDsZMhgCWafKIw==}
+    hasBin: true
+
+  topojson-client@3.1.0:
+    resolution: {integrity: sha512-605uxS6bcYxGXw9qi62XyrV6Q3xwbndjachmNxu8HWTtVPxZfEJN9fd/SZS1Q54Sn2y0TMyMxFj/cJINqGHrKw==}
     hasBin: true
 
   tough-cookie@6.0.1:
@@ -2806,12 +2817,13 @@ snapshots:
 
   '@dagrejs/graphlib@4.0.1': {}
 
-  '@diagrammo/dgmo@0.18.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
+  '@diagrammo/dgmo@0.20.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
     dependencies:
       '@dagrejs/dagre': 3.0.0
       '@resvg/resvg-js': 2.6.2
       d3-array: 3.2.4
       d3-cloud: 1.2.9
+      d3-geo: 3.1.1
       d3-hierarchy: 3.1.2
       d3-scale: 4.0.2
       d3-selection: 3.0.0
@@ -2820,6 +2832,7 @@ snapshots:
       elkjs: 0.11.1
       jsdom: 29.0.2
       lz-string: 1.5.0
+      topojson-client: 3.1.0
     optionalDependencies:
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
@@ -3757,6 +3770,8 @@ snapshots:
 
   commander@11.1.0: {}
 
+  commander@2.20.3: {}
+
   commander@4.1.1: {}
 
   common-ancestor-path@2.0.0: {}
@@ -3818,6 +3833,10 @@ snapshots:
   d3-dispatch@1.0.6: {}
 
   d3-format@3.1.2: {}
+
+  d3-geo@3.1.1:
+    dependencies:
+      d3-array: 3.2.4
 
   d3-hierarchy@3.1.2: {}
 
@@ -4919,9 +4938,9 @@ snapshots:
       rehype-stringify: 10.0.1
       unified: 11.0.5
 
-  remark-dgmo@0.3.0(@diagrammo/dgmo@0.18.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.3.1(@diagrammo/dgmo@0.20.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
-      '@diagrammo/dgmo': 0.18.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+      '@diagrammo/dgmo': 0.20.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
@@ -5163,6 +5182,10 @@ snapshots:
   tldts@7.0.28:
     dependencies:
       tldts-core: 7.0.28
+
+  topojson-client@3.1.0:
+    dependencies:
+      commander: 2.20.3
 
   tough-cookie@6.0.1:
     dependencies:
