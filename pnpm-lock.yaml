@@ -9,12 +9,12 @@ importers:
   .:
     dependencies:
       remark-dgmo:
-        specifier: ^0.3.1
-        version: 0.3.1(@diagrammo/dgmo@0.20.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        specifier: ^0.3.2
+        version: 0.3.2(@diagrammo/dgmo@0.21.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
     devDependencies:
       '@diagrammo/dgmo':
-        specifier: ^0.20.0
-        version: 0.20.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+        specifier: ^0.21.0
+        version: 0.21.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.4.0(jiti@2.7.0))
@@ -153,8 +153,8 @@ packages:
   '@dagrejs/graphlib@4.0.1':
     resolution: {integrity: sha512-IvcV6FduIIAmLwnH+yun+QtV36SC7mERqa86aClNqmMN09WhmPPYU8ckHrZBozErf+UvHPWOTJYaGYiIcs0DgA==}
 
-  '@diagrammo/dgmo@0.20.0':
-    resolution: {integrity: sha512-uuDVFWNZgs4OD4F/MrpukYCZTKbnbqYnLJb13v9lgmHZWrJLkTZ0gJDMAE2bkFZsEfu6ZerwKWeIByetz6iA5g==}
+  '@diagrammo/dgmo@0.21.0':
+    resolution: {integrity: sha512-l2oyBDjFs4wS8ZO9evdjfe39j7SHV19ndCDb1orG+ceUPtre4zeVdVDJiP1HdL7Dcs31X7Vrl6w00Y49wkB1TQ==}
     engines: {node: '>=20.6'}
     hasBin: true
     peerDependencies:
@@ -2158,11 +2158,11 @@ packages:
   rehype@13.0.2:
     resolution: {integrity: sha512-j31mdaRFrwFRUIlxGeuPXXKWQxet52RBQRvCmzl5eCefn/KGbomK5GMHNMsOJf55fgo3qw5tST5neDuarDYR2A==}
 
-  remark-dgmo@0.3.1:
-    resolution: {integrity: sha512-lAgnMQtR5JwxHFOVLQBc0TZf7xGqpWGuisWdhaK+rEwINeHmiz5Jd4/53ye8EBD38mpKTRVLHP47VdVimHnpRw==}
+  remark-dgmo@0.3.2:
+    resolution: {integrity: sha512-gEAGErXkPGHSXrXVr399ZVZxyhhD+HHmH+xh/MlV5ASqOgivDPzdCJbYwajpPBTvCE27A/PqeLjXymacl232EA==}
     engines: {node: '>=20.6'}
     peerDependencies:
-      '@diagrammo/dgmo': ^0.20.0
+      '@diagrammo/dgmo': ^0.21.0
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
@@ -2817,7 +2817,7 @@ snapshots:
 
   '@dagrejs/graphlib@4.0.1': {}
 
-  '@diagrammo/dgmo@0.20.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
+  '@diagrammo/dgmo@0.21.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
     dependencies:
       '@dagrejs/dagre': 3.0.0
       '@resvg/resvg-js': 2.6.2
@@ -4938,9 +4938,9 @@ snapshots:
       rehype-stringify: 10.0.1
       unified: 11.0.5
 
-  remark-dgmo@0.3.1(@diagrammo/dgmo@0.20.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.3.2(@diagrammo/dgmo@0.21.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
-      '@diagrammo/dgmo': 0.20.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+      '@diagrammo/dgmo': 0.21.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
