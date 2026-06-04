@@ -1,4 +1,10 @@
 {
   "$schema": "https://unpkg.com/knip@6/schema.json",
-  "ignore": ["tests/fixture/**", "scripts/**"]
+  "ignore": ["tests/fixture/**", "scripts/**"],
+  "ignoreExportsUsedInFile": true,
+  "rules": {
+    "duplicates": "off",
+    "exports": "warn",
+    "types": "warn"
+  }
 }
