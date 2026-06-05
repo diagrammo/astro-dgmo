@@ -69,7 +69,7 @@
     "astro": "^4.0.0 || ^5.0.0 || ^6.0.0"
   },
   "dependencies": {
-    "remark-dgmo": "^0.3.3"
+    "remark-dgmo": "^0.3.4"
   },
   "devDependencies": {
     "@diagrammo/dgmo": "^0.24.0",
