@@ -5,9 +5,13 @@
 //      no programmatic stylesheet injection, so this is the documented
 //      manual step from the astro-dgmo README — without it, light/dark
 //      diagram wrappers both render at the same time.
-//   2. Provide a `data-theme` toggle on `<html>` so the color-mode swap
+//   2. Import `remark-dgmo/theme-nord.css` — the shared Nord page theme so
+//      the chrome matches dgmo's default `nord` diagram palette. It drives
+//      `body` background/foreground via `--dgmo-*` vars (light + dark).
+//   3. Provide a `data-theme` toggle on `<html>` so the color-mode swap
 //      can be eyeballed against `[data-theme="dark"]`-keyed CSS.
 import 'remark-dgmo/client.css';
+import 'remark-dgmo/theme-nord.css';
 
 interface Props {
   title?: string;
@@ -24,21 +28,23 @@ const { title = 'astro-dgmo fixture' } = Astro.props;
     <style is:global>
       :root { color-scheme: light; }
       :root[data-theme='dark'] { color-scheme: dark; }
+      /* Layout only — colors come from remark-dgmo/theme-nord.css (--dgmo-*). */
       body {
         font-family: system-ui, sans-serif;
         max-width: 920px;
         margin: 0 auto;
         padding: 2rem 1.5rem 4rem;
-        background: white;
-        color: #111;
       }
-      :root[data-theme='dark'] body { background: #111; color: #eee; }
       button.theme-toggle {
         position: fixed;
         top: 1rem;
         right: 1rem;
         padding: 0.4rem 0.8rem;
         cursor: pointer;
+        background: var(--dgmo-surface);
+        color: var(--dgmo-fg);
+        border: 1px solid var(--dgmo-border);
+        border-radius: 0.4rem;
       }
     </style>
   </head>

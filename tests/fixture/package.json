@@ -11,7 +11,8 @@
   "dependencies": {
     "@diagrammo/dgmo": "^0.15.0",
     "astro": "^6.0.0",
-    "astro-dgmo": "link:../.."
+    "astro-dgmo": "link:../..",
+    "remark-dgmo": "^0.3.5"
   },
   "engines": {
     "node": ">=20.6"
