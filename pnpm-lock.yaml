@@ -9,12 +9,12 @@ importers:
   .:
     dependencies:
       remark-dgmo:
-        specifier: ^0.3.4
-        version: 0.3.4(@diagrammo/dgmo@0.24.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        specifier: ^0.3.6
+        version: 0.3.6(@diagrammo/dgmo@0.27.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
     devDependencies:
       '@diagrammo/dgmo':
-        specifier: ^0.24.0
-        version: 0.24.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+        specifier: ^0.27.0
+        version: 0.27.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.4.0(jiti@2.7.0))
@@ -50,7 +50,7 @@ importers:
         version: 8.59.3(eslint@10.4.0(jiti@2.7.0))(typescript@6.0.3)
       vitest:
         specifier: ^4.1.4
-        version: 4.1.5(@types/node@22.19.17)(jsdom@29.0.2)(vite@7.3.2(@types/node@22.19.17)(jiti@2.7.0)(yaml@2.9.0))
+        version: 4.1.5(@types/node@22.19.17)(jsdom@29.1.1)(vite@7.3.2(@types/node@22.19.17)(jiti@2.7.0)(yaml@2.9.0))
 
 packages:
 
@@ -200,8 +200,8 @@ packages:
   '@dagrejs/graphlib@4.0.1':
     resolution: {integrity: sha512-IvcV6FduIIAmLwnH+yun+QtV36SC7mERqa86aClNqmMN09WhmPPYU8ckHrZBozErf+UvHPWOTJYaGYiIcs0DgA==}
 
-  '@diagrammo/dgmo@0.24.0':
-    resolution: {integrity: sha512-arWIAtJkhCOwth273Cn0rk1F1RAKXQA3FVeczEWJgkSJfgbsXab4m5CuiFDfd4RafLdWDsRvsAiKargMRu03lA==}
+  '@diagrammo/dgmo@0.27.0':
+    resolution: {integrity: sha512-M3u4dr2mTaI1MYyUv+IwVQT6sPIqNeyEQsth7Nx9zvJgSbgA1V3oY6NDLz4AeAKZHPxkxD/kQT53gzhI9ePrXg==}
     engines: {node: '>=20.6'}
     hasBin: true
     peerDependencies:
@@ -1686,8 +1686,8 @@ packages:
     resolution: {integrity: sha512-KIN/nDJBQRcXw0MLVhZE9iQHmG68qAVIBg9CqmUYjmQIhgij9U5MFvrqkUL5FbtyyzZuOeOt0zdeRe4UY7ct+A==}
     engines: {node: '>= 0.4'}
 
-  echarts@6.0.0:
-    resolution: {integrity: sha512-Tte/grDQRiETQP4xz3iZWSvoHrkCQtwqd6hs+mifXcjrCuo2iKWbajFObuLJVBlDIJlOzgQPd1hsaKt/3+OMkQ==}
+  echarts@6.1.0:
+    resolution: {integrity: sha512-q0yaFPggC9FUdsWH4blavRWFmxdrIodbkoKNAjJudAI6CA9gNPxHtV2RcZNEepZVlk4yvBYkOkbk6HIVpIyHZA==}
 
   elkjs@0.11.1:
     resolution: {integrity: sha512-zxxR9k+rx5ktMwT/FwyLdPCrq7xN6e4VGGHH8hA01vVYKjTFik7nHOxBnAYtrgYUB1RpAiLvA1/U2YraWxyKKg==}
@@ -2154,8 +2154,8 @@ packages:
     resolution: {integrity: sha512-PSo2U0G8OxULayGyQMv7T/0ZQ+c3PPltdMOz/57v9Xnmq5xSIhh4cnZ0oYZPKqejy10aFwAbMVxqAlo24+PQ3g==}
     hasBin: true
 
-  jsdom@29.0.2:
-    resolution: {integrity: sha512-9VnGEBosc/ZpwyOsJBCQ/3I5p7Q5ngOY14a9bf5btenAORmZfDse1ZEheMiWcJ3h81+Fv7HmJFdS0szo/waF2w==}
+  jsdom@29.1.1:
+    resolution: {integrity: sha512-ECi4Fi2f7BdJtUKTflYRTiaMxIB0O6zfR1fX0GXpUrf6flp8QIYn1UT20YQqdSOfk2dfkCwS8LAFoJDEppNK5Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24.0.0}
     peerDependencies:
       canvas: ^3.0.0
@@ -2717,11 +2717,11 @@ packages:
   rehype@13.0.2:
     resolution: {integrity: sha512-j31mdaRFrwFRUIlxGeuPXXKWQxet52RBQRvCmzl5eCefn/KGbomK5GMHNMsOJf55fgo3qw5tST5neDuarDYR2A==}
 
-  remark-dgmo@0.3.4:
-    resolution: {integrity: sha512-9X9vFfH7CgdUSeiYCC81lhymjhBC+PY8aB/I9QQBvLsvvewwUqt+WkFEiOb0j1KeAOLNLearG96yNbC8G0b3Ug==}
+  remark-dgmo@0.3.6:
+    resolution: {integrity: sha512-JlCBizIxapAHfofJAL2WBbAJGiC0Q9z/V4TJkwTFSzxP3qdRtg3UF6uYgaErbusC+TsSeAPkH/arCtlAJMf0Ug==}
     engines: {node: '>=20.6'}
     peerDependencies:
-      '@diagrammo/dgmo': ^0.24.0
+      '@diagrammo/dgmo': ^0.27.0
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
@@ -3346,8 +3346,8 @@ packages:
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
-  zrender@6.0.0:
-    resolution: {integrity: sha512-41dFXEEXuJpNecuUQq6JlbybmnHaqqpGlbH1yxnA5V9MMP4SbohSVZsJIwz+zdjQXSSlR1Vc34EgH1zxyTDvhg==}
+  zrender@6.1.0:
+    resolution: {integrity: sha512-oEGMDB6pOP2S6OwRR4PdVv610zrjnA3Bh+JnSG12fYJlBKjtNAoEb5fSUoCOOINlH96I2fU38/A2UpRKs67xYQ==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -3531,7 +3531,7 @@ snapshots:
 
   '@dagrejs/graphlib@4.0.1': {}
 
-  '@diagrammo/dgmo@0.24.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
+  '@diagrammo/dgmo@0.27.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
     dependencies:
       '@dagrejs/dagre': 3.0.0
       '@resvg/resvg-js': 2.6.2
@@ -3542,9 +3542,9 @@ snapshots:
       d3-scale: 4.0.2
       d3-selection: 3.0.0
       d3-shape: 3.2.0
-      echarts: 6.0.0
+      echarts: 6.1.0
       elkjs: 0.11.1
-      jsdom: 29.0.2
+      jsdom: 29.1.1
       lz-string: 1.5.0
       topojson-client: 3.1.0
     optionalDependencies:
@@ -4869,10 +4869,10 @@ snapshots:
       es-errors: 1.3.0
       gopd: 1.2.0
 
-  echarts@6.0.0:
+  echarts@6.1.0:
     dependencies:
       tslib: 2.3.0
-      zrender: 6.0.0
+      zrender: 6.1.0
 
   elkjs@0.11.1: {}
 
@@ -5424,7 +5424,7 @@ snapshots:
       fs-extra: 11.3.5
       jscpd-sarif-reporter: 4.2.4
 
-  jsdom@29.0.2:
+  jsdom@29.1.1:
     dependencies:
       '@asamuzakjp/css-color': 5.1.11
       '@asamuzakjp/dom-selector': 7.1.1
@@ -6258,9 +6258,9 @@ snapshots:
       rehype-stringify: 10.0.1
       unified: 11.0.5
 
-  remark-dgmo@0.3.4(@diagrammo/dgmo@0.24.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.3.6(@diagrammo/dgmo@0.27.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
-      '@diagrammo/dgmo': 0.24.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+      '@diagrammo/dgmo': 0.27.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
@@ -6751,7 +6751,7 @@ snapshots:
     optionalDependencies:
       vite: 7.3.2(@types/node@22.19.17)(jiti@2.7.0)(yaml@2.9.0)
 
-  vitest@4.1.5(@types/node@22.19.17)(jsdom@29.0.2)(vite@7.3.2(@types/node@22.19.17)(jiti@2.7.0)(yaml@2.9.0)):
+  vitest@4.1.5(@types/node@22.19.17)(jsdom@29.1.1)(vite@7.3.2(@types/node@22.19.17)(jiti@2.7.0)(yaml@2.9.0)):
     dependencies:
       '@vitest/expect': 4.1.5
       '@vitest/mocker': 4.1.5(vite@7.3.2(@types/node@22.19.17)(jiti@2.7.0)(yaml@2.9.0))
@@ -6775,7 +6775,7 @@ snapshots:
       why-is-node-running: 2.3.0
     optionalDependencies:
       '@types/node': 22.19.17
-      jsdom: 29.0.2
+      jsdom: 29.1.1
     transitivePeerDependencies:
       - msw
 
@@ -6865,7 +6865,7 @@ snapshots:
 
   zod@4.3.6: {}
 
-  zrender@6.0.0:
+  zrender@6.1.0:
     dependencies:
       tslib: 2.3.0
 
