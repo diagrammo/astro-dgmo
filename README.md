@@ -18,6 +18,12 @@ API -200 OK-> Client
   <em>Write a fenced <code>dgmo</code> block — it renders to SVG at build time.</em>
 </p>
 
+## Chart types & visual authoring
+
+One small plain-text language, **45 chart types** — flowcharts, sequence, state, class, ER, C4, org charts, gantt, maps, mind maps, and the full bar/line/pie/area/sankey family. Browse every type with live examples in the **[language reference](https://diagrammo.app/reference)**.
+
+Prefer to author visually? Draft diagrams in the **[Diagrammo desktop app](https://diagrammo.app/app)** or the **[online editor](https://online.diagrammo.app)** — live preview, autocomplete, optional vim keybindings, 7 themeable palettes, and one-click PNG/SVG export — then paste the `dgmo` block into your docs. More at **[diagrammo.app](https://diagrammo.app)**.
+
 ## Install
 
 ```bash
