@@ -12,6 +12,12 @@ API -200 OK-> Client
 
 …in any `.md` or `.mdx` file becomes a beautifully rendered SVG, inlined into the page. Every diagram is rendered twice at build time (light + dark palettes) and follows the host's color-mode toggle via shipped CSS.
 
+<p align="center">
+  <a href="https://diagrammo.app"><img src="https://diagrammo.app/readme/sequence.gif" alt="A DGMO diagram authored as plain text" width="100%"></a>
+  <br>
+  <em>Write a fenced <code>dgmo</code> block — it renders to SVG at build time.</em>
+</p>
+
 ## Install
 
 ```bash
