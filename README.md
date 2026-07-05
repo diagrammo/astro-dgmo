@@ -166,7 +166,11 @@ v0.2 baked one palette per diagram at build time. If your site supported a dark/
 
 **You must add a CSS import** to a global layout — see Quick start.
 
-**Class names changed.** The rendered HTML class-name prefix changed from `astro-dgmo-*` to `dgmo-*` (e.g., `astro-dgmo-card` → `dgmo-card`). For one minor cycle (v0.3.x) we emit BOTH so existing CSS keeps working. v0.4 drops the legacy aliases. If you have CSS or DOM walkers targeting `astro-dgmo-*` classes, update them now to the `dgmo-*` equivalents.
+**Class names changed.** The rendered HTML class-name prefix changed from `astro-dgmo-*` to `dgmo-*` (e.g., `astro-dgmo` → `dgmo`). For one minor cycle (v0.3.x) we emit BOTH so existing CSS keeps working. v0.4 drops the legacy aliases. If you have CSS or DOM walkers targeting `astro-dgmo-*` classes, update them now to the `dgmo-*` equivalents.
+
+### Upgrading to 0.6.0
+
+v0.6 adopts the standard DGMO embed block (via remark-dgmo 0.5): the `dgmo-card` class is removed, syntax-token classes are renamed to `dgmo-tok-*`, the source view now sits behind a native `<details>` (`dgmo-source-wrap`), and showcase chrome is a hover-revealed icon toolbar (`dgmo-toolbar-btn`, `dgmo-copy`, `dgmo-open`). If you have custom CSS targeting `dgmo-card` or old token classes, retarget it to the new class names.
 
 No API changes. No breaking changes to fenced-block syntax or per-block options.
 

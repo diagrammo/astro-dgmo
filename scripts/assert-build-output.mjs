@@ -7,11 +7,11 @@
 // Checks:
 //   1. The built page HTML contains both `dgmo-light` and `dgmo-dark` class
 //      names (dual-render emitted).
-//   2. The page <head> contains an inline <style> block whose contents
-//      include the `.dgmo-dark { display: none; }` rule from
-//      remark-dgmo/client.css. Astro inlines CSS imports into the page —
-//      it does NOT emit a <link>, which is what the docusaurus equivalent
-//      script checks.
+//   2. The page <head> ships CSS (inline <style> and/or linked /_astro/*.css
+//      — Astro links instead of inlining once the stylesheet exceeds its
+//      inline threshold, which remark-dgmo 0.5's larger client.css does)
+//      whose contents include the `.dgmo-dark { display: none; }` rule from
+//      remark-dgmo/client.css.
 //   3. The page-specific JS chunk(s) do NOT contain the jsdom-internal
 //      sentinel string. Browser bundles must drop jsdom at the runtime-
 //      construction boundary in dgmo/src/render.ts.
@@ -50,8 +50,10 @@ const html = readFileSync(HTML_PATH, 'utf8');
 if (!/\bdgmo-light\b/.test(html)) fail('built HTML missing dgmo-light wrapper');
 if (!/\bdgmo-dark\b/.test(html)) fail('built HTML missing dgmo-dark wrapper');
 
-// Astro inlines `import 'remark-dgmo/client.css'` into a <style> block in
-// <head>. Look for the three load-bearing rules from remark-dgmo's stylesheet.
+// Astro either inlines `import 'remark-dgmo/client.css'` into a <style>
+// block in <head> or, above its inline threshold, emits a
+// <link rel="stylesheet" href="/_astro/*.css">. Gather CSS from both and
+// look for the load-bearing color-mode rule from remark-dgmo's stylesheet.
 const headMatch = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
 if (!headMatch) fail('built HTML has no <head> section');
 const head = headMatch[1];
@@ -59,23 +61,34 @@ const head = headMatch[1];
 const styleBlocks = [...head.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map(
   (m) => m[1]
 );
-if (styleBlocks.length === 0) {
-  fail('built HTML has no inline <style> blocks in <head>');
+const linkedCss = [
+  ...head.matchAll(/<link[^>]+rel="stylesheet"[^>]+href="([^"]+)"/g),
+]
+  .map((m) => m[1])
+  .filter((href) => href.startsWith('/'))
+  .map((href) => {
+    const p = resolve(FIXTURE, 'dist', `.${href}`);
+    return existsSync(p) ? readFileSync(p, 'utf8') : '';
+  });
+if (styleBlocks.length === 0 && linkedCss.length === 0) {
+  fail(
+    'built HTML has no inline <style> blocks or linked stylesheets in <head>'
+  );
 }
-const allStyleText = styleBlocks.join('\n');
+const allStyleText = [...styleBlocks, ...linkedCss].join('\n');
 if (
   !/\.dgmo-dark\s*,?\s*\[data-theme=["']?dark["']?\]\s*\.dgmo-light\s*\{[^}]*display\s*:\s*none/.test(
     allStyleText
   )
 ) {
   fail(
-    'inlined <style> blocks do not contain the remark-dgmo/client.css color-mode rules. ' +
+    'page CSS (inline <style> + linked stylesheets) does not contain the remark-dgmo/client.css color-mode rules. ' +
       'Did the user forget `import "remark-dgmo/client.css"` in a global layout?'
   );
 }
 
 console.log(
-  '✓ HTML contains dgmo-light, dgmo-dark, and inlined remark-dgmo/client.css rules'
+  '✓ HTML contains dgmo-light, dgmo-dark, and the remark-dgmo/client.css rules'
 );
 
 // Astro's per-page JS chunks live in dist/_astro/. Cross-reference what the
