@@ -33,7 +33,12 @@ if (!fm) {
 }
 
 // Drop the source H1 — the page frontmatter title already serves as heading.
-const body = showcase.replace(/^#[^\n]*\n/, '');
+// Force every ```dgmo fence into showcase mode so the deployed gallery actually
+// demonstrates the hover-reveal footer (source + copy + open-in-editor). The
+// upstream fences are bare `dgmo` (diagram mode), which ships no footer at all.
+const body = showcase
+  .replace(/^#[^\n]*\n/, '')
+  .replace(/^```dgmo$/gm, '```dgmo showcase');
 
 writeFileSync(pagePath, `${fm[0]}\n${body}`);
 console.log(`composed ${body.length} bytes of showcase into ${pagePath}`);

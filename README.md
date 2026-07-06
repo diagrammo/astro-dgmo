@@ -2,7 +2,7 @@
 
 Render [DGMO](https://diagrammo.app) diagrams from fenced code blocks in your Astro site at build time. Powered by [`@diagrammo/dgmo`](https://www.npmjs.com/package/@diagrammo/dgmo) and the framework-agnostic [`remark-dgmo`](https://www.npmjs.com/package/remark-dgmo) core. Zero client JavaScript by default.
 
-📖 **Setup guide:** [diagrammo.app/embed#astro](https://diagrammo.app/embed#astro) · 🔭 **Live showcase:** [every chart type rendered through astro-dgmo](https://diagrammo.github.io/astro-dgmo/)
+📖 **Setup guide:** [diagrammo.app/embed#astro](https://diagrammo.app/embed#astro) · 🔭 **Live showcase:** [every chart type rendered through astro-dgmo](https://diagrammo.github.io/astro-dgmo/) — every block is in showcase mode, so hovering a diagram reveals its copy / open-in-editor footer.
 
 ```dgmo
 sequence
