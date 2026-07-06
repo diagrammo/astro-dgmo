@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@diagrammo/dgmo':
-        specifier: ^0.47.0
-        version: 0.47.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+        specifier: ^0.48.1
+        version: 0.48.1(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       astro:
         specifier: ^6.0.0
         version: 6.3.3(rollup@4.60.4)
@@ -19,7 +19,7 @@ importers:
         version: link:../..
       remark-dgmo:
         specifier: ^0.5.1
-        version: 0.5.1(@diagrammo/dgmo@0.47.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        version: 0.5.1(@diagrammo/dgmo@0.48.1(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
 
 packages:
 
@@ -130,8 +130,8 @@ packages:
   '@dagrejs/graphlib@4.0.1':
     resolution: {integrity: sha512-IvcV6FduIIAmLwnH+yun+QtV36SC7mERqa86aClNqmMN09WhmPPYU8ckHrZBozErf+UvHPWOTJYaGYiIcs0DgA==}
 
-  '@diagrammo/dgmo@0.47.0':
-    resolution: {integrity: sha512-0bK1TcFy2KfCuUwNds1haVlx4qkECibsBxkPzX68tVid0KHGinLedRpXIjaMcGRyf47v/GnPELRUeRFrwalH9A==}
+  '@diagrammo/dgmo@0.48.1':
+    resolution: {integrity: sha512-WnvGgm5lhFuBEWldoxEaybMCSNmV3TKdQx8oo2ik4sg+lSMMZoY1bN3FAftRbkgiMFMWVxsCD/ObLZbtieV1FA==}
     engines: {node: '>=20.6'}
     hasBin: true
     peerDependencies:
@@ -1878,7 +1878,7 @@ snapshots:
 
   '@dagrejs/graphlib@4.0.1': {}
 
-  '@diagrammo/dgmo@0.47.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
+  '@diagrammo/dgmo@0.48.1(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
     dependencies:
       '@dagrejs/dagre': 3.0.0
       '@resvg/resvg-js': 2.6.2
@@ -3275,9 +3275,9 @@ snapshots:
       rehype-stringify: 10.0.1
       unified: 11.0.5
 
-  remark-dgmo@0.5.1(@diagrammo/dgmo@0.47.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.5.1(@diagrammo/dgmo@0.48.1(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
-      '@diagrammo/dgmo': 0.47.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+      '@diagrammo/dgmo': 0.48.1(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
