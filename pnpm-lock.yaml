@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       remark-dgmo:
-        specifier: ^0.5.1
-        version: 0.5.1(@diagrammo/dgmo@0.48.1(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        specifier: ^0.5.3
+        version: 0.5.3(@diagrammo/dgmo@0.48.1(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
     devDependencies:
       '@diagrammo/dgmo':
         specifier: ^0.48.1
@@ -1133,6 +1133,9 @@ packages:
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
+
+  '@types/estree@1.0.9':
+    resolution: {integrity: sha512-GhdPgy1el4/ImP05X05Uw4cw2/M93BCUmnEvWZNStlCzEKME4Fkk+YpoA5OiHNQmoS7Cafb8Xa3Pya8m1Qrzeg==}
 
   '@types/hast@3.0.4':
     resolution: {integrity: sha512-WPs+bbQw5aCj+x6laNGWLH3wviHtoCv/P3+otBhbOhJgG8qtpdAMlTCxLtsTWA7LH1Oh/bFCHsBn0TPS5m30EQ==}
@@ -2711,8 +2714,8 @@ packages:
   rehype@13.0.2:
     resolution: {integrity: sha512-j31mdaRFrwFRUIlxGeuPXXKWQxet52RBQRvCmzl5eCefn/KGbomK5GMHNMsOJf55fgo3qw5tST5neDuarDYR2A==}
 
-  remark-dgmo@0.5.1:
-    resolution: {integrity: sha512-Yho/dMi/vdFyCjn+9WnYKpxraEXs4Q+KChFyVhU7ba0bQuNaaS1FMEO/rv3y+HY2Nl72Vo7IFDZiVCHKLeiudg==}
+  remark-dgmo@0.5.3:
+    resolution: {integrity: sha512-mVS7pZ5jOHdpHMB1kLX1XwyH/iqdmXaAFSph1cSyDWsmLwbrp+T2nxCXgIsRYhTrHbgxh+jqUcCSFPenmLX1Ng==}
     engines: {node: '>=20.6'}
     peerDependencies:
       '@diagrammo/dgmo': '>=0.45.0 <1'
@@ -4190,6 +4193,8 @@ snapshots:
 
   '@types/estree@1.0.8': {}
 
+  '@types/estree@1.0.9': {}
+
   '@types/hast@3.0.4':
     dependencies:
       '@types/unist': 3.0.3
@@ -4986,7 +4991,7 @@ snapshots:
 
   estree-util-value-to-estree@3.5.0:
     dependencies:
-      '@types/estree': 1.0.8
+      '@types/estree': 1.0.9
 
   estree-walker@2.0.2: {}
 
@@ -6237,7 +6242,7 @@ snapshots:
       rehype-stringify: 10.0.1
       unified: 11.0.5
 
-  remark-dgmo@0.5.1(@diagrammo/dgmo@0.48.1(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.5.3(@diagrammo/dgmo@0.48.1(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
       '@diagrammo/dgmo': 0.48.1(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
