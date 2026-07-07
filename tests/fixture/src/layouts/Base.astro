@@ -1,5 +1,5 @@
 ---
-// Global layout wrapper. Two responsibilities:
+// Global layout wrapper. Responsibilities:
 //
 //   1. Import `remark-dgmo/client.css`. Astro 6's IntegrationHook has
 //      no programmatic stylesheet injection, so this is the documented
@@ -10,13 +10,39 @@
 //      `body` background/foreground via `--dgmo-*` vars (light + dark).
 //   3. Provide a `data-theme` toggle on `<html>` so the color-mode swap
 //      can be eyeballed against `[data-theme="dark"]`-keyed CSS.
+//   4. Build a table-of-contents sidebar from `Astro.props.headings`
+//      (supplied automatically when this layout wraps a markdown page):
+//      h2 headings become group labels, h3 headings become indented
+//      sub-links. Purely derived — nothing hardcoded. When there are no
+//      headings (non-markdown usage), no sidebar renders.
 import 'remark-dgmo/client.css';
 import 'remark-dgmo/theme-nord.css';
 
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
 interface Props {
   title?: string;
+  headings?: Heading[];
 }
-const { title = 'astro-dgmo fixture' } = Astro.props;
+const { title = 'astro-dgmo fixture', headings = [] } = Astro.props;
+
+interface TocGroup {
+  slug: string;
+  text: string;
+  children: Heading[];
+}
+const tocGroups: TocGroup[] = [];
+for (const h of headings) {
+  if (h.depth === 2) {
+    tocGroups.push({ slug: h.slug, text: h.text, children: [] });
+  } else if (h.depth === 3 && tocGroups.length > 0) {
+    tocGroups[tocGroups.length - 1].children.push(h);
+  }
+}
 ---
 
 <!doctype html>
@@ -46,12 +72,91 @@ const { title = 'astro-dgmo fixture' } = Astro.props;
         border: 1px solid var(--dgmo-border);
         border-radius: 0.4rem;
       }
+      /* Table-of-contents sidebar — hidden on narrow viewports so the
+         single-column look is unchanged below 1100px. Plain anchors,
+         no scroll-spy. Colors ride the same --dgmo-* vars as the rest
+         of the page, so light/dark both work. */
+      nav.toc {
+        display: none;
+      }
+      @media (min-width: 1100px) {
+        nav.toc {
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 240px;
+          max-height: 100vh;
+          overflow-y: auto;
+          padding: 2rem 1rem 2rem 1.25rem;
+          box-sizing: border-box;
+          border-right: 1px solid var(--dgmo-border);
+          font-size: 0.85rem;
+          line-height: 1.4;
+        }
+        /* Content keeps its max-width but shifts right of the sidebar. */
+        body:has(nav.toc) {
+          margin-left: 280px;
+          margin-right: auto;
+        }
+      }
+      nav.toc ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      nav.toc > ul > li + li {
+        margin-top: 0.9rem;
+      }
+      nav.toc a {
+        display: block;
+        padding: 0.1rem 0;
+        color: var(--dgmo-muted);
+        text-decoration: none;
+      }
+      nav.toc a:hover {
+        color: var(--dgmo-accent-hover);
+        text-decoration: underline;
+      }
+      nav.toc a.toc-group {
+        color: var(--dgmo-fg);
+        font-weight: 600;
+      }
+      nav.toc a.toc-item {
+        padding-left: 0.9rem;
+      }
     </style>
   </head>
   <body>
     <button class="theme-toggle" type="button" id="theme-toggle">
       Toggle dark mode
     </button>
+    {
+      tocGroups.length > 0 && (
+        <nav class="toc" aria-label="Table of contents">
+          <ul>
+            {tocGroups.map((group) => (
+              <li>
+                <a class="toc-group" href={`#${group.slug}`}>
+                  {group.text}
+                </a>
+                {group.children.length > 0 && (
+                  <ul>
+                    {group.children.map((child) => (
+                      <li>
+                        <a class="toc-item" href={`#${child.slug}`}>
+                          {child.text}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </nav>
+      )
+    }
     <slot />
     <script is:inline>
       const btn = document.getElementById('theme-toggle');
