@@ -1,9 +1,9 @@
 ---
-title: astro-dgmo fixture
+title: Diagrammo × Astro
 layout: ../layouts/Base.astro
 ---
 
-# astro-dgmo fixture
+# Diagrammo × Astro
 
 A minimal Astro 6 site for `astro-dgmo` + `remark-dgmo`. Copy
 `astro.config.mjs` in the parent directory as a template for your own
