@@ -97,8 +97,9 @@ A -> B
 | `theme=light` / `theme=dark` / `theme=transparent`      | Override theme (single-render only) |
 | `colorMode=auto` / `colorMode=light` / `colorMode=dark` | Override color-mode strategy        |
 | `title="…"`                                             | Add a caption (`<figcaption>`)      |
-| `source` / `noSource`                                   | Force source listing on/off         |
+| `source` / `noSource`                                   | Force source view + toggle on/off   |
 | `copy` / `noCopy`                                       | Force copy button on/off            |
+| `expand` / `noExpand`                                   | Force expand (full-screen) on/off   |
 | `openInEditor` / `noOpenInEditor`                       | Force editor link on/off            |
 
 See the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo) for the full option matrix.
