@@ -9,7 +9,7 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@diagrammo/dgmo": "^0.49.0",
+    "@diagrammo/dgmo": ">=0.50.0 <1",
     "astro": "^6.0.0",
     "astro-dgmo": "link:../..",
     "remark-dgmo": "^0.6.0"
