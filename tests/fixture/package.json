@@ -9,10 +9,10 @@
     "preview": "astro preview"
   },
   "dependencies": {
-    "@diagrammo/dgmo": ">=0.53.0 <1",
+    "@diagrammo/dgmo": ">=0.57.0 <1",
     "astro": "^6.0.0",
     "astro-dgmo": "link:../..",
-    "remark-dgmo": "^0.10.0"
+    "remark-dgmo": "^0.11.0"
   },
   "engines": {
     "node": ">=20.6"
