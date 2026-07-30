@@ -104,6 +104,36 @@ A -> B
 
 See the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo) for the full option matrix.
 
+## Cloud references (opt-in)
+
+A fence can name a published [Diagrammo Cloud](https://diagrammo.app) diagram
+instead of carrying its own source, so the page stops going stale the day it is
+written:
+
+````md
+```dgmo
+cloud dgm_01HQ3RSTUV
+```
+````
+
+```js
+// astro.config.mjs
+integrations: [dgmo({ references: { enabled: true } })];
+```
+
+The build resolves it, renders it exactly like any other block, and writes what
+it fetched to `.dgmo/references/<id>.json` — **commit that directory.** It is
+what makes your build reproducible, offline-capable, and independent of our
+uptime: if we are unreachable, the site builds from the committed copy and warns.
+
+⚠️ **If your site sets a Content-Security-Policy it must allow
+`connect-src https://api.diagrammo.app`.** Without it the diagram still renders
+(it was baked at build time) but never refreshes, and nothing can report that —
+the report would be blocked too.
+
+The full behaviour, including what each kind of failure does to your build, is in
+the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo#cloud-references-opt-in).
+
 ## Working reference site
 
 [`tests/fixture/`](./tests/fixture/) is a complete minimal Astro 6 site running this integration. Copy [`tests/fixture/astro.config.mjs`](./tests/fixture/astro.config.mjs) + [`tests/fixture/src/layouts/Base.astro`](./tests/fixture/src/layouts/Base.astro) as a starting template.
