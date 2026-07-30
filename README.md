@@ -131,6 +131,20 @@ uptime: if we are unreachable, the site builds from the committed copy and warns
 (it was baked at build time) but never refreshes, and nothing can report that —
 the report would be blocked too.
 
+### When a diagram changes after you build
+
+By default the page **notices** — a small link to the live diagram — rather than
+re-rendering it. Re-rendering means shipping the dgmo renderer in your bundle,
+and on this repo's own fixture that is the difference between **1 chunk / 8.9 KB
+gzipped and 88 chunks / 634 KB**. Lazy for your readers; not free for your
+`dist/`.
+
+Opt in if your diagrams change far more often than your site rebuilds:
+
+```js
+integrations: [dgmo({ references: { enabled: true, refresh: 'render' } })];
+```
+
 The full behaviour, including what each kind of failure does to your build, is in
 the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo#cloud-references-opt-in).
 
