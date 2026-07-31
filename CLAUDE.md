@@ -6,8 +6,8 @@ Shared wrapper contract: [`../remark-dgmo/WRAPPER-CONVENTIONS.md`](../remark-dgm
 
 ## Versions — read `package.json`, these drift
 
-- `remark-dgmo` `^0.11.0` — the only wrapper on 0.11; the other three sit on `^0.10.0`
-- peers: `@diagrammo/dgmo` `>=0.57.0 <1` (the highest floor of the four), `astro` `^4 || ^5 || ^6`
+- `remark-dgmo` `^0.11.0` — the same version all five wrappers are on (checked 2026-07-31)
+- peers: `@diagrammo/dgmo` `>=0.57.0 <1`, `astro` `^4 || ^5 || ^6`
 - Caret on a `0.x` dep pins the **minor**, so every `remark-dgmo` minor needs an explicit bump here
 
 ## Host specifics
