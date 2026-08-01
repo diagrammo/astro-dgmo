@@ -34,8 +34,9 @@ the cache belongs in your repo so a clean CI checkout never depends on our
 uptime — but it is an unexplained directory until you know why it is there.
 
 With live links off, a `live-link` fence now renders a small card naming the
-diagram, with a hover link through to it, plus a build warning naming the option
-and the source line. It is no longer an error block.
+diagram and linking through to it, plus a hover-revealed *"Show this diagram
+here"* link to the guide and a build warning naming the option and the source
+line. It is no longer an error block.
 
 `refresh` is unchanged and still defaults to `notify`, so the renderer still
 stays out of your bundle unless you ask for it.

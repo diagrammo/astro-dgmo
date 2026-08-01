@@ -124,8 +124,9 @@ fetching anything:
 integrations: [dgmo({ liveLink: { enabled: false } })];
 ```
 
-Switched off, the fence renders a small card naming the diagram with a link
-through to it, and the build warns. See the
+Switched off, the fence renders a small card naming the diagram and linking
+through to it, plus a hover-revealed *"Show this diagram here"* link to the
+guide, and the build warns. See the
 [live links guide](https://diagrammo.app/docs/live-links/).
 
 The build resolves it, renders it exactly like any other block, and writes what
@@ -149,11 +150,11 @@ gzipped and 88 chunks / 634 KB**. Lazy for your readers; not free for your
 Opt in if your diagrams change far more often than your site rebuilds:
 
 ```js
-integrations: [dgmo({ references: { enabled: true, refresh: 'render' } })];
+integrations: [dgmo({ liveLink: { refresh: 'render' } })];
 ```
 
 The full behaviour, including what each kind of failure does to your build, is in
-the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo#cloud-references-opt-in).
+the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo#live-links-on-by-default).
 
 ## Working reference site
 
