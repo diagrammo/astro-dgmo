@@ -3,7 +3,7 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
-## Unreleased
+## 0.9.0
 
 **🔴 Live links: renamed keyword, renamed option, and now ON by default.** All
 three come from `remark-dgmo` and all three are visible to a site that upgrades
