@@ -68,13 +68,13 @@ export default function dgmoIntegration(
         );
         injectScript('page', readFileSync(clientJsPath, 'utf8'));
 
-        // Cloud references, `refresh: 'render'` only (story 10.4). The base
+        // Live links, `refresh: 'render'` only (story 10.4). The base
         // client NOTICES that a referenced diagram moved; this second module is
         // what re-renders it, and it is separate because its dynamic import is
         // static-analyzable — injecting it unconditionally took this repo's own
         // fixture from 1 chunk / 7,990 gzipped bytes to 90 chunks / 634,199.
         // Lazy for the reader, not free for the site, so it is opt-in.
-        if (options.references?.refresh === 'render') {
+        if (options.liveLink?.refresh === 'render') {
           const renderJsPath = fileURLToPath(
             import.meta.resolve('remark-dgmo/client-render.js')
           );

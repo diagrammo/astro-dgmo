@@ -104,7 +104,7 @@ A -> B
 
 See the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo) for the full option matrix.
 
-## Cloud references (opt-in)
+## Live links (on by default)
 
 A fence can name a published [Diagrammo Cloud](https://diagrammo.app) diagram
 instead of carrying its own source, so the page stops going stale the day it is
@@ -112,14 +112,21 @@ written:
 
 ````md
 ```dgmo
-cloud dgm_01HQ3RSTUV
+live-link dgm_01HQ3RSTUV
 ```
 ````
 
+No configuration needed — this resolves out of the box. To stop your build
+fetching anything:
+
 ```js
 // astro.config.mjs
-integrations: [dgmo({ references: { enabled: true } })];
+integrations: [dgmo({ liveLink: { enabled: false } })];
 ```
+
+Switched off, the fence renders a small card naming the diagram with a link
+through to it, and the build warns. See the
+[live links guide](https://diagrammo.app/docs/live-links/).
 
 The build resolves it, renders it exactly like any other block, and writes what
 it fetched to `.dgmo/references/<id>.json` — **commit that directory.** It is
