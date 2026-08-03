@@ -39,7 +39,7 @@ jobs:
       - name: Install fixture deps
         run: cd tests/fixture && pnpm install --no-frozen-lockfile
 
-      - name: Compose showcase page (all chart types from dgmo-content)
+      - name: Compose showcase page (live links + all chart types from dgmo-content)
         run: node scripts/compose-showcase.mjs tests/fixture/src/pages/index.md
 
       - name: Build site
