@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       remark-dgmo:
-        specifier: ^0.13.0
-        version: 0.13.0(@diagrammo/dgmo@0.58.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        specifier: ^0.13.1
+        version: 0.13.1(@diagrammo/dgmo@0.58.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
     devDependencies:
       '@diagrammo/dgmo':
         specifier: ^0.58.0
@@ -2714,8 +2714,8 @@ packages:
   rehype@13.0.2:
     resolution: {integrity: sha512-j31mdaRFrwFRUIlxGeuPXXKWQxet52RBQRvCmzl5eCefn/KGbomK5GMHNMsOJf55fgo3qw5tST5neDuarDYR2A==}
 
-  remark-dgmo@0.13.0:
-    resolution: {integrity: sha512-oruxCPgJdnf755grHS5Ugrc0Vmkio0CTI95ldZPFqH9jWZhCVf9Yv7Pa7rY+E7HoO8lH10iksSSaOixPa5FsCQ==}
+  remark-dgmo@0.13.1:
+    resolution: {integrity: sha512-x3XRI6zyVzCfnBD4l6tt1d/r7KU1yO+teqZVhxrH2szl7h5lnsW2mZqMq8p5IT4p8HIpRc4wlXiyorf5RdNWcg==}
     engines: {node: '>=20.6'}
     peerDependencies:
       '@diagrammo/dgmo': '>=0.58.0 <1'
@@ -6242,7 +6242,7 @@ snapshots:
       rehype-stringify: 10.0.1
       unified: 11.0.5
 
-  remark-dgmo@0.13.0(@diagrammo/dgmo@0.58.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.13.1(@diagrammo/dgmo@0.58.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
       '@diagrammo/dgmo': 0.58.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
