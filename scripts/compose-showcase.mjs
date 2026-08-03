@@ -1,16 +1,20 @@
 #!/usr/bin/env node
 // Compose the GitHub Pages showcase page.
 //
-// Fetches dgmo-content's all-chart-types.md and splices its body beneath the
-// target fixture page's existing frontmatter — reusing the page's layout and
-// `remark-dgmo/client.css` wiring untouched. CI-only: the rewritten page is
-// built and deployed but never committed.
+// Fetches dgmo-content's live-links.md and all-chart-types.md and splices them
+// beneath the target fixture page's existing frontmatter — reusing the page's
+// layout and `remark-dgmo/client.css` wiring untouched. CI-only: the rewritten
+// page is built and deployed but never committed.
 //
 // Usage: node scripts/compose-showcase.mjs <fixture-page-path>
 import { readFileSync, writeFileSync } from 'node:fs';
 
-const RAW =
-  'https://raw.githubusercontent.com/diagrammo/dgmo-content/main/examples/all-chart-types.md';
+const BASE =
+  'https://raw.githubusercontent.com/diagrammo/dgmo-content/main/examples';
+const RAW = `${BASE}/all-chart-types.md`;
+// Top billing: a live link is the one thing this integration does that a
+// screenshot in a docs folder cannot, so it leads the page.
+const INTRO_RAW = `${BASE}/docs/live-links.md`;
 
 const pagePath = process.argv[2];
 if (!pagePath) {
@@ -18,12 +22,23 @@ if (!pagePath) {
   process.exit(1);
 }
 
-const res = await fetch(RAW);
-if (!res.ok) {
-  console.error(`fetch ${RAW} failed: ${res.status} ${res.statusText}`);
-  process.exit(1);
-}
-const showcase = await res.text();
+const get = async (url) => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    console.error(`fetch ${url} failed: ${res.status} ${res.statusText}`);
+    process.exit(1);
+  }
+  return res.text();
+};
+
+// LIVE_LINK_SRC=<path> composes the intro from a local file instead of the
+// network — how this page is checked before the dgmo-content change is pushed.
+const [intro, showcase] = await Promise.all([
+  process.env.LIVE_LINK_SRC
+    ? readFileSync(process.env.LIVE_LINK_SRC, 'utf8')
+    : get(INTRO_RAW),
+  get(RAW),
+]);
 
 const page = readFileSync(pagePath, 'utf8');
 const fm = page.match(/^---\n[\s\S]*?\n---\n/);
@@ -40,5 +55,10 @@ const body = showcase
   .replace(/^#[^\n]*\n/, '')
   .replace(/^```dgmo$/gm, '```dgmo showcase');
 
-writeFileSync(pagePath, `${fm[0]}\n${body}`);
-console.log(`composed ${body.length} bytes of showcase into ${pagePath}`);
+// The live-link section keeps its fences in diagram mode on purpose. It is the
+// one diagram on the page whose source is deliberately not on the page, so a
+// showcase footer offering "view source" would undercut what it demonstrates.
+writeFileSync(pagePath, `${fm[0]}\n${intro.trim()}\n\n${body}`);
+console.log(
+  `composed ${intro.length} bytes of live-link intro + ${body.length} bytes of showcase into ${pagePath}`,
+);
