@@ -38,6 +38,11 @@ const BASELINE = resolve(FIXTURE, 'baseline-bundle-size.json');
 const JSDOM_SENTINEL = 'http://www.w3.org/2000/xmlns/';
 const BUDGET_BYTES = 100 * 1024;
 
+/** Chunk filenames carry `.` and `-`; both are regex metacharacters in a class. */
+function escapeRe(s) {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function fail(msg) {
   console.error(`::error::${msg}`);
   process.exit(1);
@@ -91,22 +96,63 @@ console.log(
   '✓ HTML contains dgmo-light, dgmo-dark, and the remark-dgmo/client.css rules'
 );
 
-// Astro's per-page JS chunks live in dist/_astro/. Cross-reference what the
-// HTML links to so we score only the chunks actually shipped to this page.
+// Astro's per-page JS chunks live in dist/_astro/.
+//
+// 🔴 Scoring "chunks the HTML names" is not the same as "JS the browser runs",
+// and the difference is not academic. Under `liveLink: { refresh: 'render' }`
+// rollup splits the entry into a re-export shim plus a graph reached by static
+// import, so the HTML names ONE 77-byte file while the eager payload is ~9.9 KB
+// and 88 further chunks hang off a dynamic import. Scored the old way this build
+// reported a 9-KB *reduction* and passed. So:
+//
+//   - the sentinel check reads the EAGER closure, which is a superset of what it
+//     read before. It would be better to read every emitted chunk — jsdom in a
+//     lazily imported one is still jsdom in a browser — but it cannot yet, and
+//     the reason is worth knowing before someone "fixes" it: the sentinel string
+//     is the xmlns namespace URI, which is NOT jsdom-specific. It appears in
+//     d3-selection's namespace map, and d3 is part of the client renderer that
+//     `refresh: 'render'` legitimately ships. Scanning everything therefore fails
+//     that build on a false positive. Checked 2026-08-03 against all 90 chunks of
+//     a render build: zero occurrences of parse5, nwsapi, cssstyle, SymbolTree,
+//     whatwg-url or the literal "jsdom" — the renderer graph is clean, the
+//     sentinel is just the wrong probe for it. A jsdom-specific marker that
+//     survives minification would let this widen; the same string is hard-coded
+//     in the docusaurus, fumadocs and nextra assert scripts too.
+//   - the size baseline scores the EAGER closure — the entry scripts plus
+//     everything reachable by static import, which is what a reader downloads
+//     before anything runs. Dynamic imports are deliberately excluded; charging
+//     a page for bytes it fetches only on a code path most readers never take is
+//     how a budget stops meaning anything.
 if (!existsSync(ASSETS)) {
   console.warn(
     `::warning::no dist/_astro dir found — astro emitted zero page chunks. Sentinel/byte checks skipped.`
   );
 } else {
   const allChunks = readdirSync(ASSETS).filter((f) => f.endsWith('.js'));
-  const referenced = allChunks.filter((f) => html.includes(`/_astro/${f}`));
+  const entries = allChunks.filter((f) =>
+    new RegExp(`<script[^>]+src="[^"]*/_astro/${escapeRe(f)}"`).test(html)
+  );
 
-  if (referenced.length === 0) {
+  // Static `import ... from './x.js'` — fetched before the module executes.
+  // NOT `import('./x.js')`, which the leading-character guard excludes.
+  const STATIC_IMPORT =
+    /(?:^|[;}\s])import\s*(?:[^'"()]*?from\s*)?["']\.\/([A-Za-z0-9._-]+\.js)["']/g;
+  const eager = new Set();
+  const queue = [...entries];
+  while (queue.length) {
+    const chunk = queue.shift();
+    if (eager.has(chunk) || !allChunks.includes(chunk)) continue;
+    eager.add(chunk);
+    const body = readFileSync(join(ASSETS, chunk), 'utf8');
+    for (const m of body.matchAll(STATIC_IMPORT)) queue.push(m[1]);
+  }
+
+  if (eager.size === 0) {
     console.warn(
       `::warning::no per-page JS chunks referenced from the index page; sentinel/byte checks skipped`
     );
   } else {
-    for (const chunk of referenced) {
+    for (const chunk of eager) {
       const body = readFileSync(join(ASSETS, chunk), 'utf8');
       if (body.includes(JSDOM_SENTINEL)) {
         fail(
@@ -115,10 +161,10 @@ if (!existsSync(ASSETS)) {
       }
     }
     console.log(
-      `✓ ${referenced.length} per-page JS chunks free of jsdom sentinel`
+      `✓ ${eager.size} eager JS chunks free of jsdom sentinel (${allChunks.length} emitted)`
     );
 
-    const totalGzipped = referenced.reduce(
+    const totalGzipped = [...eager].reduce(
       (acc, chunk) => acc + gzipSync(readFileSync(join(ASSETS, chunk))).length,
       0
     );

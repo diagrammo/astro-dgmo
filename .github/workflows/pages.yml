@@ -19,6 +19,17 @@ jobs:
     runs-on: ubuntu-latest
     env:
       PAGES_BASE: /astro-dgmo/
+      # The showcase redraws a changed live link in place rather than showing the
+      # "this diagram has been updated" notice the default ships. On a page whose
+      # argument is that the diagram is current, the notice is the one element
+      # that fails to demonstrate the thing. Costs +740 gzipped bytes eagerly and
+      # 641 KB fetched only when a diagram has actually changed — measured
+      # 2026-08-03; `pnpm test:e2e` prints the eager number on every run.
+      #
+      # This is the ONLY place it is on. The default every adopter gets is
+      # `notify`, and the committed fixture keeps building that way so the
+      # bundle-size baseline keeps guarding it.
+      LIVE_LINK_REFRESH: render
     steps:
       - uses: actions/checkout@v6
 
