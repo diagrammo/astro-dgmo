@@ -12,7 +12,7 @@
     "@diagrammo/dgmo": "0.59.0",
     "astro": "^6.0.0",
     "astro-dgmo": "link:../..",
-    "remark-dgmo": "0.13.1"
+    "remark-dgmo": "0.13.2"
   },
   "engines": {
     "node": ">=20.6"
