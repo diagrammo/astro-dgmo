@@ -6,9 +6,9 @@ Shared wrapper contract: [`../remark-dgmo/WRAPPER-CONVENTIONS.md`](../remark-dgm
 
 ## Versions — read `package.json`, these drift
 
-- `remark-dgmo` `^0.12.0` — the same version all five wrappers are on (checked 2026-08-03)
-- peers: `@diagrammo/dgmo` `>=0.58.0 <1`, `astro` `^4 || ^5 || ^6`
-- `tests/fixture/` pins both **exactly** (`0.12.0` / `0.59.0`) rather than by range: a caret would let CI silently build the Pages showcase against a `remark-dgmo` that predates live links, and the fence would render a reference card instead of the diagram
+- `remark-dgmo` `^0.14.0` — the same version all five wrappers are on (checked 2026-08-04)
+- peers: `@diagrammo/dgmo` `>=0.60.0 <1`, `astro` `^4 || ^5 || ^6`. The floor tracks remark-dgmo's own: 0.14.0 imports `@diagrammo/dgmo/live-link-resolve`, a subpath that first exists in dgmo 0.60.0
+- `tests/fixture/` pins both **exactly** (`0.14.0` / `0.60.0`) rather than by range: a caret would let CI silently build the Pages showcase against a `remark-dgmo` that predates live links, and the fence would render a reference card instead of the diagram
 - Caret on a `0.x` dep pins the **minor**, so every `remark-dgmo` minor needs an explicit bump here
 
 ## Host specifics

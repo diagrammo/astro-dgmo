@@ -3,6 +3,23 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
+## 0.9.1
+
+**Takes `remark-dgmo` 0.14.0, where the step that asks the Cloud what a pointer
+points at moved into dgmo itself.** Nothing about this integration changes: the
+build resolves live links exactly as before, `.dgmo/references/` keeps its
+format, and the failure table that decides whether a build stops is untouched.
+
+🔴 **The `@diagrammo/dgmo` peer floor rises to `>=0.60.0 <1`.** 0.60.0 is the
+release that adds the `@diagrammo/dgmo/live-link-resolve` subpath that
+`remark-dgmo` 0.14.0 imports. On an older dgmo the failure is a module
+resolution error in your build, not a warning here.
+
+This is a patch and not a minor on purpose. **A caret on a `0.x` version locks
+the minor**, so a site on `^0.9.0` can reach 0.9.1 and cannot reach 0.10.0 —
+and a dependency-floor release that no existing site can install is the exact
+problem this release exists to undo.
+
 ## 0.9.0
 
 **🔴 Live links: renamed keyword, renamed option, and now ON by default.** All
