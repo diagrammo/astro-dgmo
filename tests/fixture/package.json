@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "build": "astro build",
-    "dev": "if command -v claim-port >/dev/null 2>&1; then claim-port 4341 || exit 1; fi; astro dev --port 4341",
-    "preview": "if command -v claim-port >/dev/null 2>&1; then claim-port 4341 || exit 1; fi; astro preview --port 4341"
+    "dev": "if command -v claim-port >/dev/null 2>&1; then claim-port 4341 || { [ $? -eq 3 ] || exit 1; exit 0; }; fi; astro dev --port 4341",
+    "preview": "if command -v claim-port >/dev/null 2>&1; then claim-port 4341 || { [ $? -eq 3 ] || exit 1; exit 0; }; fi; astro preview --port 4341"
   },
   "dependencies": {
     "@diagrammo/dgmo": "0.60.0",
