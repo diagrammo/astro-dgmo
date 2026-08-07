@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@diagrammo/dgmo':
-        specifier: 0.60.0
-        version: 0.60.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+        specifier: 0.61.0
+        version: 0.61.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       astro:
         specifier: ^6.0.0
         version: 6.3.3(rollup@4.60.4)
@@ -18,8 +18,8 @@ importers:
         specifier: link:../..
         version: link:../..
       remark-dgmo:
-        specifier: 0.14.0
-        version: 0.14.0(@diagrammo/dgmo@0.60.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        specifier: 0.14.2
+        version: 0.14.2(@diagrammo/dgmo@0.61.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
 
 packages:
 
@@ -130,8 +130,8 @@ packages:
   '@dagrejs/graphlib@4.0.1':
     resolution: {integrity: sha512-IvcV6FduIIAmLwnH+yun+QtV36SC7mERqa86aClNqmMN09WhmPPYU8ckHrZBozErf+UvHPWOTJYaGYiIcs0DgA==}
 
-  '@diagrammo/dgmo@0.60.0':
-    resolution: {integrity: sha512-PbpxPmMzHukPda6d0HIoK55fmEYGcmeVQal4rclAcnhvSQNYpDLb8h/KXodoP8VAzOaPxauscjmvDGYHyy4TOw==}
+  '@diagrammo/dgmo@0.61.0':
+    resolution: {integrity: sha512-pxQtr+8VAwK50vxcqxMBs8A6OJM8sARPORtv40UXfNQUlsfsHFcHoCDKg6FRq3TJlB6u9QUQ8zc/0q43IhipPQ==}
     engines: {node: '>=20.6'}
     hasBin: true
     peerDependencies:
@@ -1402,11 +1402,11 @@ packages:
   rehype@13.0.2:
     resolution: {integrity: sha512-j31mdaRFrwFRUIlxGeuPXXKWQxet52RBQRvCmzl5eCefn/KGbomK5GMHNMsOJf55fgo3qw5tST5neDuarDYR2A==}
 
-  remark-dgmo@0.14.0:
-    resolution: {integrity: sha512-9uZwzaubuJnpKgf/5dnZGJAUmGz1Z/Z1j+yHbuCNzndWq5/7j1ZwlBcx+cCwzY4JqhKrnvMhXbGNypmU0VqdKQ==}
+  remark-dgmo@0.14.2:
+    resolution: {integrity: sha512-EcVnFxc9L6rL1wnF8srooazPKAuH9Kh/EK1tYLWe+hgNctWZiFxxpPeaoz7+R2uMTHQrs2YzM2M/JmVy7D8WEA==}
     engines: {node: '>=20.6'}
     peerDependencies:
-      '@diagrammo/dgmo': '>=0.60.0 <1'
+      '@diagrammo/dgmo': '>=0.61.0 <1'
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
@@ -1878,7 +1878,7 @@ snapshots:
 
   '@dagrejs/graphlib@4.0.1': {}
 
-  '@diagrammo/dgmo@0.60.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
+  '@diagrammo/dgmo@0.61.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
     dependencies:
       '@dagrejs/dagre': 3.0.0
       '@resvg/resvg-js': 2.6.2
@@ -3275,9 +3275,9 @@ snapshots:
       rehype-stringify: 10.0.1
       unified: 11.0.5
 
-  remark-dgmo@0.14.0(@diagrammo/dgmo@0.60.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.14.2(@diagrammo/dgmo@0.61.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
-      '@diagrammo/dgmo': 0.60.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+      '@diagrammo/dgmo': 0.61.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
