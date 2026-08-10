@@ -6,7 +6,8 @@
 //
 // Checks:
 //   1. The built page HTML contains both `dgmo-light` and `dgmo-dark` class
-//      names (dual-render emitted).
+//      names (dual-render emitted), no fence baked the error card, and the
+//      map fence drew a real basemap.
 //   2. The page <head> ships CSS (inline <style> and/or linked /_astro/*.css
 //      — Astro links instead of inlining once the stylesheet exceeds its
 //      inline threshold, which remark-dgmo 0.5's larger client.css does)
@@ -54,6 +55,26 @@ const html = readFileSync(HTML_PATH, 'utf8');
 
 if (!/\bdgmo-light\b/.test(html)) fail('built HTML missing dgmo-light wrapper');
 if (!/\bdgmo-dark\b/.test(html)) fail('built HTML missing dgmo-dark wrapper');
+
+// The map fence drew a map, not the error card. dgmo reads no basemap files
+// on its own — remark-dgmo hands them over — and when nobody does, a map
+// still "builds" and still emits a figure, so only the CONTENT of the SVG
+// tells the two apart. Between dgmo 0.62.0 and 0.66.0 every map fence on
+// every wrapper baked the error card, and no fixture here contained a map to
+// notice; that is why this asserts on the page rather than on a unit.
+if (/Couldn't render this diagram/.test(html))
+  fail('built HTML contains the dgmo error card — a fence failed to render');
+if (/no basemap data/.test(html))
+  fail(
+    'the map fence rendered the "no basemap data" card — remark-dgmo is not ' +
+      'supplying mapData, or the installed @diagrammo/dgmo predates 0.66.0'
+  );
+// Place labels resolve off the gazetteer, so their presence proves real
+// basemap data was loaded rather than an empty frame being drawn.
+for (const place of ['Denver', 'Miami']) {
+  if (!html.includes(place))
+    fail(`map fence rendered without its "${place}" label`);
+}
 
 // Astro either inlines `import 'remark-dgmo/client.css'` into a <style>
 // block in <head> or, above its inline threshold, emits a

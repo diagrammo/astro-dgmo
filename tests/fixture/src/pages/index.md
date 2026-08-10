@@ -64,3 +64,12 @@ TypeScript  45
 Python       30
 Rust         25
 ```
+
+## A map — the basemaps come from the plugin, not from this page
+
+```dgmo
+map Port Calls
+
+poi Denver
+poi Miami
+```
