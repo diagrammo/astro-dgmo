@@ -70,7 +70,11 @@ if (/no basemap data/.test(html))
       'supplying mapData, or the installed @diagrammo/dgmo predates 0.66.0'
   );
 // Place labels resolve off the gazetteer, so their presence proves real
-// basemap data was loaded rather than an empty frame being drawn.
+// basemap data was loaded rather than an empty frame being drawn. `Miami` is
+// the load-bearing half, and the pair is deliberate: the error card echoes the
+// opening lines of the source it could not render, so `Denver` (line 3) shows
+// up even in a broken build. `Miami` is line 4, past that echo. Do not
+// "simplify" this to a single label.
 for (const place of ['Denver', 'Miami']) {
   if (!html.includes(place))
     fail(`map fence rendered without its "${place}" label`);
