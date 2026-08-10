@@ -36,6 +36,33 @@ npm install astro-dgmo @diagrammo/dgmo
 
 `@diagrammo/dgmo` is a peer dependency.
 
+### On Astro 7, add one more package
+
+```bash
+pnpm add @astrojs/markdown-remark
+```
+
+Astro 7 changed its default Markdown processor to Sätteri, which does not run
+remark plugins — and diagrams are rendered by one. Without this package Astro
+stops the build and tells you to install it.
+
+With it installed there is nothing else to do: `astro-dgmo` puts the site back
+on the `unified` processor it has always rendered through, so Markdown behaves
+exactly as it did on Astro 6, and prints a one-line notice saying it did. If you
+would rather own that yourself, configure `unified` and the integration adds
+itself to your processor instead of replacing it:
+
+```js
+import { unified } from '@astrojs/markdown-remark';
+
+export default defineConfig({
+  markdown: { processor: unified() },
+  integrations: [dgmo()],
+});
+```
+
+Astro 4, 5 and 6 need none of this.
+
 ## Quick start
 
 Add the integration to `astro.config.mjs`:

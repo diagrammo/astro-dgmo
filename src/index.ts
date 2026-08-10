@@ -53,12 +53,70 @@ export default function dgmoIntegration(
   return {
     name: 'astro-dgmo',
     hooks: {
-      'astro:config:setup'({ updateConfig, injectScript }) {
-        updateConfig({
-          markdown: {
-            remarkPlugins: [[remarkDgmo, optionsWithLegacy]],
-          },
-        });
+      async 'astro:config:setup'({ config, updateConfig, injectScript, logger }) {
+        const plugin: [typeof remarkDgmo, DgmoIntegrationOptions] = [
+          remarkDgmo,
+          optionsWithLegacy,
+        ];
+
+        // 🔴 Astro 7 stopped running remark plugins, and does it QUIETLY.
+        //
+        // Sätteri replaced unified as the default Markdown processor, and
+        // `markdown.remarkPlugins` is simply not consulted by it. The build
+        // stays green, exits 0, and every diagram is gone — measured on this
+        // repo's own fixture 2026-08-10: 423,794 bytes and 14 SVGs became
+        // 6,625 bytes and 1. Astro prints one warning and carries on.
+        //
+        // So this hook asks what processor it has rather than assuming, and
+        // says out loud what it did. Feature detection, not a version check:
+        // `processor` does not exist in Astro 4-6's config at all, and
+        // `unified`/`isUnifiedProcessor` are only exported by the Astro 7 line
+        // of `@astrojs/markdown-remark`, so the two together identify the new
+        // world without anyone parsing a version string.
+        const markdownRemark = await import('@astrojs/markdown-remark').catch(
+          () => undefined
+        );
+        const unified = markdownRemark?.unified;
+        const isUnifiedProcessor = markdownRemark?.isUnifiedProcessor;
+        const processor = (
+          config?.markdown as { processor?: { name?: string } } | undefined
+        )?.processor;
+
+        if (!unified || !isUnifiedProcessor || processor === undefined) {
+          // Astro 4-6: remark IS the Markdown pipeline, so this is all it takes.
+          updateConfig({ markdown: { remarkPlugins: [plugin] } });
+        } else if (isUnifiedProcessor(processor as { name: string })) {
+          // The site already runs unified. Push into it rather than replacing
+          // it — replacing would silently drop every other plugin they set.
+          (
+            processor as { options: { remarkPlugins: unknown[] } }
+          ).options.remarkPlugins.push(plugin);
+        } else {
+          // 🔴 Something else is configured — Sätteri, or a third processor.
+          //
+          // We take it over, because the alternative is rendering nothing, and
+          // unified is the engine this integration has always run on: a site
+          // arriving from Astro 6 gets the Markdown semantics it already had.
+          //
+          // It is announced rather than done quietly, and that is not
+          // squeamishness — Astro materialises its DEFAULT processor before
+          // integrations run (verified 2026-08-10: `config.markdown.processor`
+          // is already `satteri` inside this hook on a config that never
+          // mentioned it). So "the site asked for Sätteri" and "the site asked
+          // for nothing" are indistinguishable here, and a silent swap would
+          // sometimes be overruling a real choice with no way to notice.
+          logger.warn(
+            `astro-dgmo renders diagrams through a remark plugin, which your ` +
+              `\`${(processor as { name?: string })?.name ?? 'configured'}\` Markdown processor does not run. ` +
+              `Switching \`markdown.processor\` to \`unified()\` so diagrams render. ` +
+              `To keep your own processor and control this yourself, set ` +
+              `\`markdown: { processor: unified({ remarkPlugins: [[remarkDgmo, options]] }) }\` ` +
+              `— astro-dgmo will then add itself to that processor instead of replacing it.`
+          );
+          updateConfig({
+            markdown: { processor: unified({ remarkPlugins: [plugin] }) },
+          });
+        }
         // Inline the shared remark-dgmo client script so showcase-mode copy
         // buttons + viewBox tightening light up without users wiring scripts
         // manually. Read at config-setup time so the absolute path resolves

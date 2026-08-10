@@ -67,7 +67,8 @@
   },
   "peerDependencies": {
     "@diagrammo/dgmo": ">=0.61.0 <1",
-    "astro": "^4.0.0 || ^5.0.0 || ^6.0.0"
+    "astro": "^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0",
+    "@astrojs/markdown-remark": "^7.0.0"
   },
   "pnpm": {
     "overrides": {
@@ -79,10 +80,11 @@
     "remark-dgmo": "^0.14.2"
   },
   "devDependencies": {
+    "@astrojs/markdown-remark": "^7.2.2",
     "@diagrammo/dgmo": ">=0.66.0 <1",
     "@eslint/js": "^10.0.1",
     "@types/node": "^22.20.1",
-    "astro": "^6.4.8",
+    "astro": "^7.2.0",
     "depcheck": "^1.4.7",
     "eslint": "^10.8.1",
     "jscpd": "^4.2.5",
@@ -92,5 +94,10 @@
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.66.0",
     "vitest": "^4.1.10"
+  },
+  "peerDependenciesMeta": {
+    "@astrojs/markdown-remark": {
+      "optional": true
+    }
   }
 }
