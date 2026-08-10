@@ -10,9 +10,15 @@
   },
   "dependencies": {
     "@diagrammo/dgmo": "0.61.0",
-    "astro": "^6.0.0",
+    "astro": "^6.4.8",
     "astro-dgmo": "link:../..",
     "remark-dgmo": "0.14.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": ">=0.28.1 <1",
+      "sharp": ">=0.35.0 <1"
+    }
   },
   "engines": {
     "node": ">=20.6"
