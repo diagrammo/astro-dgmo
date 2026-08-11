@@ -137,4 +137,46 @@ describe('the Markdown processor Astro 7 hands us', () => {
     expect(warn).toHaveBeenCalledOnce();
     expect(warn.mock.calls[0][0]).toContain('satteri');
   });
+
+  // 🔴 The takeover must carry what earlier integrations already registered.
+  // Starlight pushes its aside/directive remark plugins into
+  // `config.markdown.remarkPlugins`, where Sätteri never looks — and the first
+  // version of this takeover rebuilt the pipeline as `[ourPlugin]` alone, so
+  // every `:::note` on a Starlight site rendered as literal `:::` text while
+  // the diagrams worked (issue 191). Theirs first, ours appended; rehype and
+  // the site's own Markdown semantics ride along.
+  it('carries previously registered plugins and settings into the takeover', async () => {
+    const theirRemark = () => {};
+    const theirRehype = () => {};
+    const captured: Record<string, unknown> = {};
+    const built = unifiedProcessor();
+    const { updateConfig, warn } = await setup(
+      {
+        markdown: {
+          processor: { name: 'satteri' },
+          remarkPlugins: [theirRemark],
+          rehypePlugins: [theirRehype],
+          gfm: false,
+          smartypants: false,
+        },
+      },
+      {
+        unified: (opts: Record<string, unknown>) => {
+          Object.assign(captured, opts);
+          return built;
+        },
+        isUnifiedProcessor: () => false,
+      }
+    );
+    expect(updateConfig).toHaveBeenCalledOnce();
+    expect(captured['remarkPlugins']).toHaveLength(2);
+    expect((captured['remarkPlugins'] as unknown[])[0]).toBe(theirRemark);
+    expect(captured['rehypePlugins']).toEqual([theirRehype]);
+    expect(captured['gfm']).toBe(false);
+    expect(captured['smartypants']).toBe(false);
+    // And the warning counts what it carried, so a site owner reading it can
+    // tell a full pipeline from an empty one.
+    expect(warn.mock.calls[0][0]).toContain('1 remark');
+    expect(warn.mock.calls[0][0]).toContain('1 rehype');
+  });
 });

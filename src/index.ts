@@ -98,6 +98,18 @@ export default function dgmoIntegration(
           // unified is the engine this integration has always run on: a site
           // arriving from Astro 6 gets the Markdown semantics it already had.
           //
+          // 🔴 Carry the whole pipeline, not just our plugin. Integrations
+          // that ran before us — Starlight, most importantly — have already
+          // pushed their remark and rehype plugins into `config.markdown`,
+          // where the processor being replaced never looked. Neither did the
+          // first version of this takeover, which rebuilt the pipeline as
+          // `[plugin]` alone: Starlight's `:::note` asides are remark
+          // plugins, so every aside on a Starlight site rendered as literal
+          // `:::` text while the diagrams worked (issue 191, 2026-08-11).
+          // The site's own gfm / smartypants / remarkRehype settings ride
+          // along for the same reason — the takeover's contract is "your
+          // Markdown, plus diagrams", never "our Markdown instead".
+          //
           // It is announced rather than done quietly, and that is not
           // squeamishness — Astro materialises its DEFAULT processor before
           // integrations run (verified 2026-08-10: `config.markdown.processor`
@@ -105,16 +117,38 @@ export default function dgmoIntegration(
           // mentioned it). So "the site asked for Sätteri" and "the site asked
           // for nothing" are indistinguishable here, and a silent swap would
           // sometimes be overruling a real choice with no way to notice.
+          const md = (config?.markdown ?? {}) as {
+            remarkPlugins?: unknown[];
+            rehypePlugins?: unknown[];
+            remarkRehype?: Record<string, unknown>;
+            gfm?: boolean;
+            smartypants?: boolean;
+          };
+          const carried = {
+            remarkPlugins: [...(md.remarkPlugins ?? []), plugin],
+            rehypePlugins: [...(md.rehypePlugins ?? [])],
+            ...(md.remarkRehype !== undefined && {
+              remarkRehype: md.remarkRehype,
+            }),
+            ...(md.gfm !== undefined && { gfm: md.gfm }),
+            ...(md.smartypants !== undefined && {
+              smartypants: md.smartypants,
+            }),
+          };
           logger.warn(
             `astro-dgmo renders diagrams through a remark plugin, which your ` +
               `\`${(processor as { name?: string })?.name ?? 'configured'}\` Markdown processor does not run. ` +
-              `Switching \`markdown.processor\` to \`unified()\` so diagrams render. ` +
+              `Switching \`markdown.processor\` to \`unified()\` so diagrams render, ` +
+              `carrying the ${md.remarkPlugins?.length ?? 0} remark and ` +
+              `${md.rehypePlugins?.length ?? 0} rehype plugins already registered. ` +
               `To keep your own processor and control this yourself, set ` +
               `\`markdown: { processor: unified({ remarkPlugins: [[remarkDgmo, options]] }) }\` ` +
               `— astro-dgmo will then add itself to that processor instead of replacing it.`
           );
           updateConfig({
-            markdown: { processor: unified({ remarkPlugins: [plugin] }) },
+            markdown: {
+              processor: unified(carried as Parameters<typeof unified>[0]),
+            },
           });
         }
         // Inline the shared remark-dgmo client script so showcase-mode copy
