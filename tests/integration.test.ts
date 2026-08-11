@@ -179,4 +179,31 @@ describe('the Markdown processor Astro 7 hands us', () => {
     expect(warn.mock.calls[0][0]).toContain('1 remark');
     expect(warn.mock.calls[0][0]).toContain('1 rehype');
   });
+
+  // 🔴 The trap the carry above CANNOT fix: an integration that ran before us
+  // and registered into the Sätteri processor's OWN options (Starlight's
+  // asides live in `mdastPlugins`). Those are lost with the processor, so the
+  // takeover must say so and name the fix — list dgmo() first.
+  it('warns when the replaced processor carries plugins we cannot save', async () => {
+    const { warn } = await setup(
+      {
+        markdown: {
+          processor: {
+            name: 'satteri',
+            options: { mdastPlugins: [() => {}, () => {}], hastPlugins: [() => {}] },
+          },
+        },
+      },
+      {
+        unified: () => unifiedProcessor(),
+        isUnifiedProcessor: () => false,
+      }
+    );
+    const stranded = warn.mock.calls.find(
+      (c: string[]) => typeof c[0] === 'string' && c[0].includes('CANNOT be carried over')
+    );
+    expect(stranded).toBeDefined();
+    expect(stranded![0]).toContain('3 plugin(s)');
+    expect(stranded![0]).toContain('BEFORE');
+  });
 });

@@ -124,6 +124,32 @@ export default function dgmoIntegration(
             gfm?: boolean;
             smartypants?: boolean;
           };
+          // 🔴 An integration that ran BEFORE us may have registered plugins
+          // into the processor being replaced — Starlight, when it sees
+          // Sätteri, pushes its aside/anchor plugins into the processor's own
+          // `mdastPlugins`/`hastPlugins` rather than into `config.markdown`,
+          // and those cannot be carried onto unified(). We cannot fix that
+          // from here; we CAN name it and name the fix, because the silent
+          // version of this was a Starlight site whose every `:::` aside
+          // rendered as plain text (issue 191). Listing dgmo() before those
+          // integrations makes them find the unified processor already in
+          // place and join it through their own unified support.
+          const opts = (
+            processor as {
+              options?: { mdastPlugins?: unknown[]; hastPlugins?: unknown[] };
+            }
+          ).options;
+          const strandedCount =
+            (opts?.mdastPlugins?.length ?? 0) + (opts?.hastPlugins?.length ?? 0);
+          if (strandedCount > 0) {
+            logger.warn(
+              `The \`${(processor as { name?: string })?.name ?? 'configured'}\` processor being replaced already ` +
+                `carries ${strandedCount} plugin(s) registered by integrations that ran before astro-dgmo ` +
+                `(Starlight registers its \`:::\` asides this way). Those plugins CANNOT be carried over and ` +
+                `their output will be missing. Fix: list dgmo() BEFORE those integrations in \`integrations: []\`, ` +
+                `so they find the unified() processor already in place and join it instead.`
+            );
+          }
           const carried = {
             remarkPlugins: [...(md.remarkPlugins ?? []), plugin],
             rehypePlugins: [...(md.rehypePlugins ?? [])],
