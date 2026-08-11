@@ -3,6 +3,40 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
+## 0.10.1
+
+🔴 **The Astro 7 takeover no longer discards the rest of your Markdown
+pipeline** (issue 191 on `diagrammo/diagrammo`, found one day after 0.10.0
+shipped it).
+
+When 0.10.0 replaced an incompatible processor (Sätteri) with `unified()`, it
+rebuilt the pipeline with only its own plugin — dropping every remark and
+rehype plugin other integrations had registered in `config.markdown`, plus the
+site's `gfm`/`smartypants`/`remarkRehype` settings. On a Starlight site the
+symptom was every `:::` aside rendering as literal `:::` text while the
+diagrams worked. The takeover now carries all of it, theirs first, and the
+warning counts what it carried.
+
+⚠️ **What it still cannot save — and now warns about:** plugins living inside
+the replaced processor's own options. Starlight on Astro 7 registers its aside
+plugins into the Sätteri processor directly, so if Starlight runs before
+`dgmo()`, those plugins are lost with the processor. The fix is ordering: list
+`dgmo()` **before** Starlight (or any Markdown-registering integration) in
+`integrations: []` — they then find the `unified()` processor already in place
+and join it through their own unified support. The takeover detects the
+stranded plugins and prints exactly that.
+
+## 0.10.0
+
+🔴 **Diagrams survive Astro 7.** Astro 7 made Sätteri its default Markdown
+processor, and Sätteri does not run remark plugins — so every diagram vanished
+from a build that still exited 0. The `astro:config:setup` hook now asks what
+processor it has: Astro 4–6 keep the old `markdown.remarkPlugins` path, a
+`unified()` processor is joined rather than replaced, and anything else is
+taken over with `unified()` plus a warning naming what was displaced.
+
+(Entry back-filled on 2026-08-11; 0.10.0 shipped 2026-08-10 without one.)
+
 ## 0.9.2
 
 🔴 **The `@diagrammo/dgmo` peer floor rises to `>=0.61.0 <1`, correcting a range
