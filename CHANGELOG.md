@@ -3,6 +3,22 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
+## 0.10.2
+
+**Verified against `@diagrammo/dgmo` 0.71.0 and `remark-dgmo` 0.14.4**, which is
+newer than what this package had actually been building against.
+
+The dev/dependency ranges had been left where a satisfied range stops
+re-resolving: `>=0.66.0 <1` and `^0.14.2` were both still satisfied by the
+versions already in the lockfile, so a plain install never reached for anything
+newer and the fixture went on building against dgmo **0.66.0** and `remark-dgmo`
+**0.14.3**. The ranges now name the versions the build is actually checked
+against, and the lockfile resolves to them.
+
+The `@diagrammo/dgmo` peer range is deliberately unchanged. A peer floor here
+is set by which dgmo subpaths the code imports, and no import changed — raising
+it would force adopters onto a newer dgmo for nothing.
+
 ## 0.10.1
 
 🔴 **The Astro 7 takeover no longer discards the rest of your Markdown
