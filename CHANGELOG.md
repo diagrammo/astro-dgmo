@@ -3,6 +3,15 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
+## 0.10.3
+
+**Verified against `@diagrammo/dgmo` 0.72.0 and `remark-dgmo` 0.14.5.** The dev
+range moves to `>=0.72.0 <1` and the `remark-dgmo` dependency to `^0.14.5`, so
+what the fixture builds against is what this release was checked on — a range
+that already matches what is installed is never re-resolved, which is the only
+reason the declaration has to move at all. The peer range is untouched: no new
+subpath import was added.
+
 ## 0.10.2
 
 **Verified against `@diagrammo/dgmo` 0.71.0 and `remark-dgmo` 0.14.4**, which is
