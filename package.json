@@ -1,6 +1,6 @@
 {
   "name": "astro-dgmo",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "description": "Astro integration to render DGMO diagrams from fenced code blocks at build time. Powered by @diagrammo/dgmo.",
   "license": "MIT",
   "author": "Diagrammo LLC",
