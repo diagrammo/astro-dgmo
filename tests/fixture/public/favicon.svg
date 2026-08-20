@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <!-- Favicon: mark on ink badge. -->
-  <rect width="100" height="100" rx="18" fill="#1f2933"/>
-  <g transform="translate(9 9) scale(0.82)">
+  <!-- Favicon: mark on a transparent ground, trimmed to fill the canvas.
+       The badge-era inset went with the badge (2026-08-19). -->
+  <g transform="translate(-3.27 -4.56) scale(1.0911)">
     <rect x="11" y="8" width="22" height="39.5" rx="2.5" fill="#c0504d"/>
     <rect x="11" y="52.5" width="22" height="22.1" rx="2.5" fill="#5b9357"/>
     <rect x="11" y="79.6" width="22" height="12.4" rx="2.5" fill="#4f96c4"/>
