@@ -3,6 +3,26 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
+## 0.10.5
+
+**Verified against `@diagrammo/dgmo` 0.75.0 and `remark-dgmo` 0.14.7.** The dev range moves to
+`>=0.75.0 <1`; the peer range is untouched, because no new subpath import was
+added and that floor is set by imports rather than by recency.
+The `remark-dgmo` dependency moves to `^0.14.7`, so what the fixture builds
+against is what this release was checked on — a range that already matches what
+is installed is never re-resolved, which is the only reason a declaration has to
+move at all.
+
+Nothing in this package's own source changes. What readers get is dgmo 0.75.0:
+a PERT chart no longer draws its Summary card, stating its headline once in the
+subtitle instead, and a collapsed sequence group's corners no longer blob.
+
+## 0.10.4
+
+The Astro dev server stops racing a startup deadline that only agents were
+subject to (#363), and the test fixture's favicon catches up with the rest of
+the workspace (#349).
+
 ## 0.10.3
 
 **Verified against `@diagrammo/dgmo` 0.72.0 and `remark-dgmo` 0.14.5.** The dev
