@@ -16,8 +16,8 @@ importers:
         specifier: ^7.2.2
         version: 7.2.2
       '@diagrammo/dgmo':
-        specifier: 0.66.0
-        version: 0.66.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+        specifier: 0.76.0
+        version: 0.76.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       astro:
         specifier: ^7.2.0
         version: 7.2.0(@astrojs/markdown-remark@7.2.2)(@emnapi/core@1.11.1)(@emnapi/runtime@1.11.3)
@@ -25,8 +25,8 @@ importers:
         specifier: link:../..
         version: link:../..
       remark-dgmo:
-        specifier: 0.14.3
-        version: 0.14.3(@diagrammo/dgmo@0.66.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        specifier: 0.15.0
+        version: 0.15.0(@diagrammo/dgmo@0.76.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
 
 packages:
 
@@ -243,8 +243,8 @@ packages:
   '@dagrejs/graphlib@4.0.5':
     resolution: {integrity: sha512-7xrBTqIts3o+PMUZX97wSc+7TUbW+/rULzGNCTP6yooNVDXbzw4Wutg/H/xOutTB/c/k0YqOAavgPh4/Zk9PFA==}
 
-  '@diagrammo/dgmo@0.66.0':
-    resolution: {integrity: sha512-vEH1KmdyPTGxlRKPzaYr8XtWx5123B5O5adIKAmThDuY9Tq7BTsML5LI2G+tvkwrbTHgUKaTiyha61JVyhjzQg==}
+  '@diagrammo/dgmo@0.76.0':
+    resolution: {integrity: sha512-6NMY3ToRHb7kOkeDf9Yq+hHh2n54w5/xRq62gFSP/7Kexy27zhnVDx7PH3swuIrh4m7u/fJIPexit3NF0iQNSg==}
     engines: {node: '>=20.6'}
     peerDependencies:
       '@codemirror/language': ^6.12.3
@@ -1483,8 +1483,8 @@ packages:
   rehype-stringify@10.0.1:
     resolution: {integrity: sha512-k9ecfXHmIPuFVI61B9DeLPN0qFHfawM6RsuX48hoqlaKSF61RskNjSm1lI8PhBEM0MRdLxVVm4WmTqJQccH9mA==}
 
-  remark-dgmo@0.14.3:
-    resolution: {integrity: sha512-tJN1+DO7eL/8UiCqusBScro1P3W2IXfExBuXk/0swsXfI9k5eu9BYGVdzjs6N+FhlfkqJPBJeKuPQLZ/eRbfQA==}
+  remark-dgmo@0.15.0:
+    resolution: {integrity: sha512-IyAg5fGoa3slDHZpN0FNUNk7/e1qcO3UaKVYD+i6XMcZMcQUZfvIPUQ3HnzYYkS+NMtgIvk+dD3Mj25mxdWhCA==}
     engines: {node: '>=20.6'}
     peerDependencies:
       '@diagrammo/dgmo': '>=0.61.0 <1'
@@ -2059,7 +2059,7 @@ snapshots:
 
   '@dagrejs/graphlib@4.0.5': {}
 
-  '@diagrammo/dgmo@0.66.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
+  '@diagrammo/dgmo@0.76.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
     dependencies:
       '@dagrejs/dagre': 3.1.1
       d3-array: 3.2.4
@@ -3441,9 +3441,9 @@ snapshots:
       hast-util-to-html: 9.0.5
       unified: 11.0.5
 
-  remark-dgmo@0.14.3(@diagrammo/dgmo@0.66.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.15.0(@diagrammo/dgmo@0.76.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
-      '@diagrammo/dgmo': 0.66.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+      '@diagrammo/dgmo': 0.76.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10

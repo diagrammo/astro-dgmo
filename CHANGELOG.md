@@ -5,6 +5,13 @@ https://github.com/diagrammo/astro-dgmo/releases
 
 ## 0.11.0
 
+**Verified against `@diagrammo/dgmo` 0.76.0 and `remark-dgmo` 0.15.0.** Both are
+required rather than incidental: 0.76.0 is what emits the dark wrapper's
+`hidden` attribute, and 0.15.0 is what keys the stylesheet on `html.dark` as
+well as `[data-theme="dark"]`. The `remark-dgmo` dependency moves to `^0.15.0`
+— on a `0.x` version a caret locks the minor, so `^0.14.7` would have kept
+every consumer on the old stylesheet.
+
 ### Fixed
 
 - **The color-mode stylesheet is injected for you — a fresh install no longer
@@ -32,6 +39,10 @@ https://github.com/diagrammo/astro-dgmo/releases
 
 ### Changed
 
+- The built page is now asserted to carry the dark wrapper's `hidden`
+  attribute, and never the light wrapper's. That is the floor beneath the
+  stylesheet: even a consumer who opts out of the injection sees one diagram
+  rather than two.
 - `tests/fixture/src/layouts/Base.astro` no longer imports the stylesheet, so
   `scripts/assert-build-output.mjs` is now testing the injection rather than
   the layout. Its CSS assertion checks two independent facts — the dark wrapper

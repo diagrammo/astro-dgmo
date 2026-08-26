@@ -55,6 +55,15 @@ const html = readFileSync(HTML_PATH, 'utf8');
 
 if (!/\bdgmo-light\b/.test(html)) fail('built HTML missing dgmo-light wrapper');
 if (!/\bdgmo-dark\b/.test(html)) fail('built HTML missing dgmo-dark wrapper');
+// The dark wrapper ships `hidden` (@diagrammo/dgmo >= 0.76.0) so that a page
+// which never loaded the stylesheet shows ONE diagram rather than both. It is
+// user-agent origin, so the color-mode rules asserted below still override it.
+if (!/<div class="dgmo-dark[^"]*"[^>]*\shidden>/.test(html))
+  fail(
+    'the dgmo-dark wrapper is not `hidden` — a page without our stylesheet would render every diagram twice (issue 507)'
+  );
+if (/<div class="dgmo-light[^"]*"[^>]*\shidden>/.test(html))
+  fail('the dgmo-light wrapper is `hidden` — it is the no-stylesheet default and must never be');
 
 // The map fence drew a map, not the error card. dgmo reads no basemap files
 // on its own — remark-dgmo hands them over — and when nobody does, a map
