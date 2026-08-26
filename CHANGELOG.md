@@ -3,6 +3,41 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
+## 0.11.0
+
+### Fixed
+
+- **The color-mode stylesheet is injected for you — a fresh install no longer
+  renders every diagram twice.** Under the default `colorMode: 'auto'` each
+  fence produces two SVGs, light and dark, and `remark-dgmo/client.css` is the
+  only thing that hides the one you are not in. Importing it was a manual step
+  in a global layout, and a site that did not know to add that line printed the
+  same diagram twice, stacked, on a green build with no warning anywhere. The
+  integration now does it via `injectScript('page-ssr', "import
+  'remark-dgmo/client.css';")`.
+- **The reason it was manual was wrong.** This package asserted that Astro's
+  `IntegrationHook` has no stylesheet API and therefore the manual step was
+  unavoidable. The premise holds; the conclusion did not — `page-ssr` imports a
+  module into every page's frontmatter and Vite emits it as a real stylesheet,
+  which is the route Astro's own integration reference documents for CSS.
+  Measured on this repo's fixture under Astro 7.2.0: a probe page importing
+  nothing carried zero stylesheets before the change and the color-mode rules
+  after.
+
+### Added
+
+- **`injectClientCss`** (default `true`). Set `false` if you ship your own copy
+  of the color-mode rules. Importing the stylesheet yourself as well is
+  harmless — Vite resolves both to one module.
+
+### Changed
+
+- `tests/fixture/src/layouts/Base.astro` no longer imports the stylesheet, so
+  `scripts/assert-build-output.mjs` is now testing the injection rather than
+  the layout. Its CSS assertion checks two independent facts — the dark wrapper
+  is hidden by default, and some dark-mode rule reveals it — instead of one
+  regex pinned to a single minified selector list.
+
 ## 0.10.5
 
 **Verified against `@diagrammo/dgmo` 0.75.0 and `remark-dgmo` 0.14.7.** The dev range moves to

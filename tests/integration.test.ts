@@ -30,11 +30,50 @@ describe('astro-dgmo integration shim', () => {
       expect.arrayContaining(['astro-dgmo', 'astro-dgmo-card'])
     );
 
-    expect(injectScript).toHaveBeenCalledOnce();
+    // two injections: the client script, then the color-mode stylesheet
+    expect(injectScript).toHaveBeenCalledTimes(2);
     const [stage, code] = injectScript.mock.calls[0];
     expect(stage).toBe('page');
     expect(typeof code).toBe('string');
     expect(code.length).toBeGreaterThan(0);
+  });
+
+  // 🔴 Issue 507. Under the default `colorMode: 'auto'` every fence renders
+  // TWO SVGs, and only `remark-dgmo/client.css` hides the one you are not in.
+  // Importing it was a manual step in the consumer's own layout until 0.11.0,
+  // so a site that did not know to add it printed the same diagram twice with
+  // a green build and no warning. If these go red, that is back.
+  describe('color-mode stylesheet (issue 507)', () => {
+    async function stagesFor(options?: Parameters<typeof dgmoIntegration>[0]) {
+      const injectScript = vi.fn();
+      await dgmoIntegration(options).hooks['astro:config:setup']!({
+        updateConfig: vi.fn(),
+        injectScript,
+      } as never);
+      return injectScript.mock.calls as [string, string][];
+    }
+
+    it('injects client.css on every page by default', async () => {
+      const cssCalls = (await stagesFor()).filter(([, code]) =>
+        code.includes('remark-dgmo/client.css')
+      );
+      expect(cssCalls).toHaveLength(1);
+      // `page-ssr` imports the module into every page's frontmatter, which is
+      // what makes Vite emit it as a real stylesheet. No other stage does.
+      expect(cssCalls[0][0]).toBe('page-ssr');
+      expect(cssCalls[0][1]).toContain('import');
+    });
+
+    it('skips it under injectClientCss: false, keeping the client script', async () => {
+      const calls = await stagesFor({ injectClientCss: false });
+      expect(calls.some(([, code]) => code.includes('client.css'))).toBe(false);
+      expect(calls.filter(([stage]) => stage === 'page')).toHaveLength(1);
+    });
+
+    it('injects it explicitly under injectClientCss: true', async () => {
+      const calls = await stagesFor({ injectClientCss: true });
+      expect(calls.some(([, code]) => code.includes('client.css'))).toBe(true);
+    });
   });
 
   it('preserves user-supplied legacyClassNames in addition to the astro-dgmo aliases', async () => {

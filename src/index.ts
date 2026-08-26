@@ -30,11 +30,10 @@ export { default as remarkDgmo } from 'remark-dgmo';
  * by setting `colorMode: 'light'` or `colorMode: 'dark'` in the integration
  * options.
  *
- * **CSS:** Astro 6's IntegrationHook has no programmatic stylesheet
- * injection — only `injectScript`. You must import the color-mode stylesheet
- * yourself in a global layout (e.g. `src/layouts/Base.astro`):
- *
- *     import 'remark-dgmo/client.css';
+ * **CSS is automatic since v0.11.0.** The integration adds
+ * `remark-dgmo/client.css` to every page itself, so a fresh install renders
+ * one diagram rather than two. Opt out with `injectClientCss: false` if you
+ * ship your own copy of the color-mode rules.
  */
 export default function dgmoIntegration(
   options: DgmoIntegrationOptions = {}
@@ -185,6 +184,31 @@ export default function dgmoIntegration(
           import.meta.resolve('remark-dgmo/client.js')
         );
         injectScript('page', readFileSync(clientJsPath, 'utf8'));
+
+        // 🔴 The color-mode stylesheet, which used to be a manual `import` in
+        // the consumer's own layout — and therefore was routinely missing.
+        //
+        // Under `colorMode: 'auto'` (the default) every fence renders TWO
+        // SVGs; the rule that hides the one you are not in lives only in
+        // `client.css`. A site that never imported it printed the SAME
+        // diagram twice, stacked, with a green build and no warning anywhere
+        // (issue 507, reported from a real Astro site 2026-08-26).
+        //
+        // Both this file and the README said the manual step was
+        // "unavoidable" because `IntegrationHook` has no stylesheet API. The
+        // premise is right and the conclusion was wrong: `page-ssr` imports a
+        // module into every page's frontmatter, and Vite turns a CSS import
+        // there into a real stylesheet. It is the route Astro's own
+        // integration reference documents for exactly this. Measured on this
+        // repo's fixture under Astro 7.2.0 (2026-08-26): a probe page that
+        // imports nothing carried zero stylesheets before and
+        // `.dgmo-dark,[data-theme=dark] .dgmo-light{display:none}` after.
+        //
+        // Importing it again by hand costs nothing — Vite resolves both to
+        // one module.
+        if (options.injectClientCss !== false) {
+          injectScript('page-ssr', `import 'remark-dgmo/client.css';`);
+        }
 
         // Live links, `refresh: 'render'` only (story 10.4). The base
         // client NOTICES that a referenced diagram moved; this second module is

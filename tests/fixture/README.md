@@ -11,13 +11,13 @@ purposes:
    - **Just add `integrations: [dgmo()]`.** No `@astrojs/mdx` needed
      for plain `.md` — Astro's built-in markdown processor handles
      fenced blocks through the integration's remark plugin.
-   - **Import the CSS in a global layout.** Astro 6's
-     `astro:config:setup` hook has no programmatic stylesheet
-     injection (only `injectScript`), so the dark/light toggle CSS
-     must be imported manually: `import 'remark-dgmo/client.css';`
-     inside a layout's frontmatter. Astro then bundles those rules
-     into the page `<style>` tag automatically — no `<link>` element
-     is emitted.
+   - **Do NOT import the CSS.** The integration injects
+     `remark-dgmo/client.css` itself via `injectScript('page-ssr', …)`,
+     and `Base.astro` deliberately leaves it out so
+     `scripts/assert-build-output.mjs` is testing that injection
+     rather than the layout. Astro bundles the rules into the page
+     `<style>` tag — no `<link>` element is emitted. If a diagram ever
+     appears twice, this is what broke (issue 507).
 
 2. **Test fixture for plugin development.**
    [`src/pages/index.md`](./src/pages/index.md) exercises four
@@ -53,9 +53,10 @@ pnpm exec astro build && pnpm exec astro preview
 - Top-right "Toggle dark mode" button flips `data-theme` on `<html>`.
   Watch the three `colorMode: 'auto'` blocks swap palette; the
   bottom per-block override stays put (it forces `colorMode=light`).
-- View source and confirm only one `<style>` block carries the
-  `.dgmo-dark { display: none; }` rules — that's the inlined
-  `remark-dgmo/client.css`. No external CSS file is emitted.
+- View source and confirm one `<style>` block carries the
+  `.dgmo-dark { display: none; }` rules — that's the injected
+  `remark-dgmo/client.css`, which no file in this fixture imports.
+  No external CSS file is emitted.
 
 ## Not shipped to npm
 

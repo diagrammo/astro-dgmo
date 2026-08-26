@@ -80,10 +80,16 @@ for (const place of ['Denver', 'Miami']) {
     fail(`map fence rendered without its "${place}" label`);
 }
 
-// Astro either inlines `import 'remark-dgmo/client.css'` into a <style>
-// block in <head> or, above its inline threshold, emits a
+// Astro either inlines the injected `import 'remark-dgmo/client.css'` into a
+// <style> block in <head> or, above its inline threshold, emits a
 // <link rel="stylesheet" href="/_astro/*.css">. Gather CSS from both and
-// look for the load-bearing color-mode rule from remark-dgmo's stylesheet.
+// look for the load-bearing color-mode rules.
+//
+// Since astro-dgmo 0.11.0 the integration injects that stylesheet itself
+// (`injectScript('page-ssr', ...)`), so this assertion is now checking the
+// integration rather than the fixture layout — the layout deliberately does
+// NOT import it. A regression here means every consumer's site renders each
+// diagram twice (issue 507).
 const headMatch = html.match(/<head[^>]*>([\s\S]*?)<\/head>/i);
 if (!headMatch) fail('built HTML has no <head> section');
 const head = headMatch[1];
@@ -106,19 +112,29 @@ if (styleBlocks.length === 0 && linkedCss.length === 0) {
   );
 }
 const allStyleText = [...styleBlocks, ...linkedCss].join('\n');
-if (
-  !/\.dgmo-dark\s*,?\s*\[data-theme=["']?dark["']?\]\s*\.dgmo-light\s*\{[^}]*display\s*:\s*none/.test(
-    allStyleText
-  )
-) {
+// Checked as two independent facts rather than one selector-list regex: the
+// stylesheet gained an `html.dark` pair alongside the `[data-theme]` one, and
+// a minifier is free to merge those selectors into any order it likes. A
+// regex pinned to one exact merged form would go red on a cosmetic change and
+// say "the CSS is missing", which is the wrong diagnosis entirely.
+//
+// 1. `.dgmo-dark` is hidden by default — the no-toggle floor.
+if (!/\.dgmo-dark[^{]*\{[^}]*display\s*:\s*none/.test(allStyleText)) {
   fail(
-    'page CSS (inline <style> + linked stylesheets) does not contain the remark-dgmo/client.css color-mode rules. ' +
-      'Did the user forget `import "remark-dgmo/client.css"` in a global layout?'
+    'page CSS (inline <style> + linked stylesheets) never hides .dgmo-dark, so every diagram renders TWICE. ' +
+      'Did `injectScript("page-ssr", ...)` stop delivering remark-dgmo/client.css?'
+  );
+}
+// 2. Some dark-mode signal un-hides it again — otherwise the toggle is dead.
+if (!/\.dgmo-dark[^{]*\{[^}]*display\s*:\s*block/.test(allStyleText)) {
+  fail(
+    'page CSS hides .dgmo-dark but nothing ever shows it — the dark diagram is unreachable. ' +
+      'Expected a [data-theme="dark"] or html.dark rule from remark-dgmo/client.css.'
   );
 }
 
 console.log(
-  '✓ HTML contains dgmo-light, dgmo-dark, and the remark-dgmo/client.css rules'
+  '✓ HTML contains dgmo-light + dgmo-dark, and the injected client.css both hides and reveals the dark wrapper'
 );
 
 // Astro's per-page JS chunks live in dist/_astro/.

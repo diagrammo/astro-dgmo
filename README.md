@@ -76,16 +76,7 @@ export default defineConfig({
 });
 ```
 
-Then import `remark-dgmo/client.css` in a global layout — Astro 6's IntegrationHook has no programmatic stylesheet injection, so this manual step is unavoidable:
-
-```astro
----
-// src/layouts/Base.astro
-import 'remark-dgmo/client.css';
----
-```
-
-That's the whole integration. Anywhere in your Markdown or MDX content, write a fenced block with the language `dgmo`:
+That's the whole integration — no stylesheet to wire up, no layout to edit. (Before 0.11.0 you had to add `import 'remark-dgmo/client.css'` to a global layout yourself, and a site that skipped it rendered every diagram twice.) Anywhere in your Markdown or MDX content, write a fenced block with the language `dgmo`:
 
 ````markdown
 ```dgmo
@@ -198,31 +189,37 @@ Opens at http://localhost:4321 with four example diagrams (plain auto, colored t
 
 ## How CSS is delivered
 
-The shipped `remark-dgmo/client.css` contains three rules that hide the wrong-mode SVG based on `[data-theme="dark"]` on `<html>`. Astro's Vite pipeline inlines the import — a `<style>` block ends up in `<head>`, no separate stylesheet file is emitted. The required `import 'remark-dgmo/client.css'` in a global layout is what triggers that inlining; without it, both light and dark wrappers render at the same time.
+Under the default `colorMode: 'auto'` each fence renders **two** SVGs, light and dark. `remark-dgmo/client.css` is what hides the one you are not currently in, and since 0.11.0 the integration delivers it for you: `injectScript('page-ssr', "import 'remark-dgmo/client.css';")` imports the module into every page's frontmatter, and Astro's Vite pipeline turns that into a `<style>` block in `<head>` (or a linked stylesheet above its inline threshold).
+
+Opt out with `dgmo({ injectClientCss: false })` if you ship your own copy of the color-mode rules. Importing the stylesheet yourself as well is harmless — Vite resolves both to one module.
+
+**Why this changed.** Through 0.10.x the import was a manual step, and this README called it unavoidable on the grounds that Astro's `IntegrationHook` has no stylesheet API. That premise is true and the conclusion was wrong: `page-ssr` is the route [Astro's own integration reference](https://docs.astro.build/en/reference/integrations-reference/) documents for injecting CSS. Meanwhile a site that did not know to add the line rendered the same diagram twice, stacked, with a green build and no warning anywhere.
 
 A small client script (~600 bytes) is injected via `injectScript('page', …)`. It tightens each diagram's `viewBox` to its content bounds and binds showcase-mode copy buttons. If your site forbids inline scripts via CSP, ignore this script — diagrams still render, but layout may have extra whitespace and copy buttons won't function.
 
 ## Custom color-mode selector
 
-The shipped `remark-dgmo/client.css` keys on `[data-theme="dark"]`. For Tailwind-style sites that use a `.dark` class on `<html>`, don't import that stylesheet — inline these three rules in your own CSS instead:
+The shipped stylesheet keys dark mode on **both** conventions, so nothing is needed for either of these:
+
+- `data-theme="dark"` on `<html>` — Starlight, Docusaurus
+- `class="dark"` on `<html>` — Tailwind, next-themes
+
+If your site marks dark mode some third way (`data-color-scheme="dark"`, `:root[data-mode="dark"]`), add the pair of rules with your own selector — no need to opt out of the injected stylesheet, since these simply layer on top:
 
 ```css
-.dgmo-dark {
+[data-mode='dark'] .dgmo-light {
   display: none;
 }
-html.dark .dgmo-light {
-  display: none;
-}
-html.dark .dgmo-dark {
+[data-mode='dark'] .dgmo-dark {
   display: block;
 }
 ```
 
-For other selectors (`data-color-scheme="dark"`, `:root[data-mode="dark"]`, etc.), same three rules with the selector swapped.
+If your site has no dark mode at all, you get the light diagram and nothing else to do: the dark wrapper ships with the `hidden` attribute, so it stays hidden until one of the rules above overrides it.
 
 ## How it works
 
-1. The Astro integration registers a remark plugin via `astro:config:setup` and inline-injects the `remark-dgmo` client script via `injectScript('page', …)`.
+1. The Astro integration registers a remark plugin via `astro:config:setup`, inline-injects the `remark-dgmo` client script via `injectScript('page', …)`, and adds the color-mode stylesheet via `injectScript('page-ssr', …)`.
 2. The remark plugin walks `.md`/`.mdx` ASTs after parse, finding `code` nodes whose `lang === 'dgmo'`.
 3. Each block is rendered to an SVG string by calling `render()` from `@diagrammo/dgmo` — once per theme under default `colorMode: 'auto'`, or once total under `'light'` / `'dark'`. Width/height are stripped and a `viewBox` is added so the diagram scales responsively.
 4. The original `code` node is replaced with an `html` node containing the rendered wrapper(s).

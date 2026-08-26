@@ -1,10 +1,12 @@
 ---
 // Global layout wrapper. Responsibilities:
 //
-//   1. Import `remark-dgmo/client.css`. Astro 6's IntegrationHook has
-//      no programmatic stylesheet injection, so this is the documented
-//      manual step from the astro-dgmo README — without it, light/dark
-//      diagram wrappers both render at the same time.
+//   1. Deliberately NOT importing `remark-dgmo/client.css`. Since
+//      astro-dgmo 0.11.0 the integration injects it itself, and this layout
+//      is the proof: `scripts/assert-build-output.mjs` asserts the built page
+//      carries the color-mode rules anyway. Re-adding the import here would
+//      make that assertion pass for the wrong reason and hide a regression
+//      that renders every diagram twice (issue 507).
 //   2. Import `remark-dgmo/theme-nord.css` — the shared Nord page theme so
 //      the chrome matches dgmo's default `nord` diagram palette. It drives
 //      `body` background/foreground via `--dgmo-*` vars (light + dark).
@@ -15,7 +17,6 @@
 //      h2 headings become group labels, h3 headings become indented
 //      sub-links. Purely derived — nothing hardcoded. When there are no
 //      headings (non-markdown usage), no sidebar renders.
-import 'remark-dgmo/client.css';
 import 'remark-dgmo/theme-nord.css';
 
 interface Heading {

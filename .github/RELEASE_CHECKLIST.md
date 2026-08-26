@@ -18,7 +18,7 @@ The fixture build asserts HTML/CSS structure but not the actual toggle UX. Once 
 
 - [ ] `pnpm create astro@latest _smoke -- --template minimal --no-install --no-git` in a scratch dir.
 - [ ] `pnpm pack` in this repo; install the tarball into `_smoke` (`pnpm add ../astro-dgmo-X.Y.Z.tgz @diagrammo/dgmo`).
-- [ ] Wire the integration per README into `_smoke/astro.config.mjs` (plus the `import 'remark-dgmo/client.css'` in a layout).
+- [ ] Wire the integration per README into `_smoke/astro.config.mjs` — nothing else; the stylesheet is injected. A diagram appearing TWICE means that injection broke (issue 507).
 - [ ] Add a sample `.md` page with a dgmo block and a `data-theme` toggle button.
 - [ ] `pnpm dev` opens the page.
 - [ ] Confirm the diagram **renders** (not raw fence text).
