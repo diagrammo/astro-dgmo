@@ -137,7 +137,9 @@ describe('the Markdown processor Astro 7 hands us', () => {
   it('on Astro 4-6 there is no processor, so it registers a remark plugin as before', async () => {
     const { updateConfig, warn } = await setup({ markdown: {} });
     expect(updateConfig).toHaveBeenCalledOnce();
-    expect(updateConfig.mock.calls[0][0].markdown.remarkPlugins).toHaveLength(1);
+    expect(updateConfig.mock.calls[0][0].markdown.remarkPlugins).toHaveLength(
+      1
+    );
     expect(warn).not.toHaveBeenCalled();
   });
 
@@ -229,7 +231,10 @@ describe('the Markdown processor Astro 7 hands us', () => {
         markdown: {
           processor: {
             name: 'satteri',
-            options: { mdastPlugins: [() => {}, () => {}], hastPlugins: [() => {}] },
+            options: {
+              mdastPlugins: [() => {}, () => {}],
+              hastPlugins: [() => {}],
+            },
           },
         },
       },
@@ -239,7 +244,8 @@ describe('the Markdown processor Astro 7 hands us', () => {
       }
     );
     const stranded = warn.mock.calls.find(
-      (c: string[]) => typeof c[0] === 'string' && c[0].includes('CANNOT be carried over')
+      (c: string[]) =>
+        typeof c[0] === 'string' && c[0].includes('CANNOT be carried over')
     );
     expect(stranded).toBeDefined();
     expect(stranded![0]).toContain('3 plugin(s)');

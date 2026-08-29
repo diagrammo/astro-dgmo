@@ -143,7 +143,7 @@ integrations: [dgmo({ liveLink: { enabled: false } })];
 ```
 
 Switched off, the fence renders a small card naming the diagram and linking
-through to it, plus a hover-revealed *"Show this diagram here"* link to the
+through to it, plus a hover-revealed _"Show this diagram here"_ link to the
 guide, and the build warns. See the
 [live links guide](https://diagrammo.app/docs/live-links/).
 

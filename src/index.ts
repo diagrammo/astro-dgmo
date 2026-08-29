@@ -52,7 +52,12 @@ export default function dgmoIntegration(
   return {
     name: 'astro-dgmo',
     hooks: {
-      async 'astro:config:setup'({ config, updateConfig, injectScript, logger }) {
+      async 'astro:config:setup'({
+        config,
+        updateConfig,
+        injectScript,
+        logger,
+      }) {
         const plugin: [typeof remarkDgmo, DgmoIntegrationOptions] = [
           remarkDgmo,
           optionsWithLegacy,
@@ -139,7 +144,8 @@ export default function dgmoIntegration(
             }
           ).options;
           const strandedCount =
-            (opts?.mdastPlugins?.length ?? 0) + (opts?.hastPlugins?.length ?? 0);
+            (opts?.mdastPlugins?.length ?? 0) +
+            (opts?.hastPlugins?.length ?? 0);
           if (strandedCount > 0) {
             logger.warn(
               `The \`${(processor as { name?: string })?.name ?? 'configured'}\` processor being replaced already ` +

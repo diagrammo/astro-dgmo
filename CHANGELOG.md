@@ -21,7 +21,7 @@ every consumer on the old stylesheet.
   in a global layout, and a site that did not know to add that line printed the
   same diagram twice, stacked, on a green build with no warning anywhere. The
   integration now does it via `injectScript('page-ssr', "import
-  'remark-dgmo/client.css';")`.
+'remark-dgmo/client.css';")`.
 - **The reason it was manual was wrong.** This package asserted that Astro's
   `IntegrationHook` has no stylesheet API and therefore the manual step was
   unavoidable. The premise holds; the conclusion did not — `page-ssr` imports a

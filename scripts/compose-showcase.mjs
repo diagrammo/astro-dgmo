@@ -60,5 +60,5 @@ const body = showcase
 // showcase footer offering "view source" would undercut what it demonstrates.
 writeFileSync(pagePath, `${fm[0]}\n${intro.trim()}\n\n${body}`);
 console.log(
-  `composed ${intro.length} bytes of live-link intro + ${body.length} bytes of showcase into ${pagePath}`,
+  `composed ${intro.length} bytes of live-link intro + ${body.length} bytes of showcase into ${pagePath}`
 );

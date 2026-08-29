@@ -63,7 +63,9 @@ if (!/<div class="dgmo-dark[^"]*"[^>]*\shidden>/.test(html))
     'the dgmo-dark wrapper is not `hidden` — a page without our stylesheet would render every diagram twice (issue 507)'
   );
 if (/<div class="dgmo-light[^"]*"[^>]*\shidden>/.test(html))
-  fail('the dgmo-light wrapper is `hidden` — it is the no-stylesheet default and must never be');
+  fail(
+    'the dgmo-light wrapper is `hidden` — it is the no-stylesheet default and must never be'
+  );
 
 // The map fence drew a map, not the error card. dgmo reads no basemap files
 // on its own — remark-dgmo hands them over — and when nobody does, a map
