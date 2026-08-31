@@ -3,6 +3,32 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
+## 0.11.2
+
+**Verified against `@diagrammo/dgmo` 0.79.0 and `remark-dgmo` 0.15.2.** The
+`remark-dgmo` dependency moves to `>=0.15.2 <1` and the `@diagrammo/dgmo` range
+this package builds against to `>=0.79.0 <1`. Those moves are the release: a
+range that is already satisfied is never re-resolved, so the last version was
+still being built and tested against 0.77.0.
+
+Nothing in this package's own source changes. What readers get is three
+releases of the library. Every chart type was brought onto one visual language,
+so a border, a shadow and a type weight mean the same thing wherever they
+appear — which included making the error card's docs link bold, the one
+declaration `remark-dgmo`'s stylesheet copy had drifted on. A group line can
+carry a tag value and the group's frame takes that value's colour, in
+boxes-and-lines, infra, kanban, c4, state and pert; a c4 diagram now names a
+tag group nobody has switched to instead of drawing it as nothing at all; and a
+long identifier wraps where a reader would break it — after an underscore or
+hyphen, and between the words of camelCase — rather than being chopped
+mid-word.
+
+### Changed
+
+- Formatting only, across the files that had drifted from Prettier, and
+  `format:check` now runs on every push so the next drift fails there instead
+  of accumulating.
+
 ## 0.11.0
 
 **Verified against `@diagrammo/dgmo` 0.76.0 and `remark-dgmo` 0.15.0.** Both are
