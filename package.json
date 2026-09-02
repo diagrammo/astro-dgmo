@@ -77,7 +77,7 @@
     }
   },
   "dependencies": {
-    "remark-dgmo": ">=0.15.2 <1"
+    "remark-dgmo": ">=0.15.3 <1"
   },
   "devDependencies": {
     "@astrojs/markdown-remark": "^7.2.2",

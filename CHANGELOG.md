@@ -3,6 +3,21 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
+## 0.11.3
+
+**Verified against `@diagrammo/dgmo` 0.81.0 and `remark-dgmo` 0.15.3.** The
+`remark-dgmo` dependency moves to `>=0.15.3 <1` and the `@diagrammo/dgmo` range
+this package builds against to `>=0.81.0 <1`. Those moves are the release: a
+range that is already satisfied is never re-resolved, so the last version was
+built and tested against what it happened to have installed rather than against
+what this workspace publishes.
+
+What 0.81.0 brings to a rendered page: boxes-and-lines arrowheads are no longer
+painted at the node centres under the boxes they point at, an edge label lands
+on the line it names, a two-way pair of edges stops drawing as an X, `color:`
+on an edge reaches the stroke, and a numbered heatmap row label is read as a
+label rather than the row's first value.
+
 ## 0.11.2
 
 **Verified against `@diagrammo/dgmo` 0.79.0 and `remark-dgmo` 0.15.2.** The
