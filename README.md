@@ -211,11 +211,13 @@ If your site marks dark mode some third way (`data-color-scheme="dark"`, `:root[
   display: none;
 }
 [data-mode='dark'] .dgmo-dark {
-  display: block;
+  display: block !important;
 }
 ```
 
-If your site has no dark mode at all, you get the light diagram and nothing else to do: the dark wrapper ships with the `hidden` attribute, so it stays hidden until one of the rules above overrides it.
+The `!important` is required, not decoration: the dark wrapper ships with an inline `display: none` (see below), and only an important rule outranks an inline declaration.
+
+If your site has no dark mode at all, you get the light diagram and nothing else to do: the dark wrapper ships with an inline `display: none`, so it stays hidden until one of the rules above overrides it. That was the `hidden` attribute until `@diagrammo/dgmo` 0.82.0 — Tailwind v4 hides `[hidden]` with `!important` from inside `@layer base`, and a layered important declaration outranks an unlayered one whatever its specificity, so on a Tailwind v4 site no rule could reveal the dark diagram and every block was a blank box in dark mode.
 
 ## How it works
 

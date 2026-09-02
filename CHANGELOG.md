@@ -3,6 +3,21 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
+## 0.11.4
+
+**Diagrams were blank in dark mode on a Tailwind v4 site.** A dual-render fence
+ships a light SVG and a dark one and lets the stylesheet pick; the dark wrapper
+carried the `hidden` attribute so a site that never loaded the stylesheet showed
+one diagram rather than two. Tailwind v4's preflight hides `[hidden]` with
+`!important` from inside `@layer base`, and for important declarations a layered
+rule outranks an unlayered one at any specificity — so the reveal could not win
+at any strength, and the block collapsed to a zero-height empty box.
+
+Tracks `@diagrammo/dgmo` 0.82.0 and `remark-dgmo` 0.15.4, which hide the dark
+wrapper with an inline `display: none` and reveal it with `!important`. **If you
+wrote your own color-mode selector**, add `!important` to your `display: block`
+rule — an inline declaration outranks every normal author rule.
+
 ## 0.11.3
 
 **Verified against `@diagrammo/dgmo` 0.81.0 and `remark-dgmo` 0.15.3.** The
