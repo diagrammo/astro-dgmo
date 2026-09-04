@@ -77,11 +77,11 @@
     }
   },
   "dependencies": {
-    "remark-dgmo": ">=0.15.4 <1"
+    "remark-dgmo": ">=0.15.5 <1"
   },
   "devDependencies": {
     "@astrojs/markdown-remark": "^7.2.2",
-    "@diagrammo/dgmo": ">=0.82.0 <1",
+    "@diagrammo/dgmo": ">=0.83.0 <1",
     "@eslint/js": "^10.0.1",
     "@types/node": "^22.20.1",
     "astro": "^7.2.0",
