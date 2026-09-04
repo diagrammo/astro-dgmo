@@ -70,7 +70,11 @@ if (/<div class="dgmo-dark[^"]*"[^>]*\shidden[\s>]/.test(html))
   fail(
     'the dgmo-dark wrapper carries the `hidden` attribute — Tailwind v4 pins it shut with a layered !important and the diagram goes blank in dark mode (issue 647)'
   );
-if (/<div class="dgmo-light[^"]*"[^>]*\s(hidden[\s>]|style="display:none")/.test(html))
+if (
+  /<div class="dgmo-light[^"]*"[^>]*\s(hidden[\s>]|style="display:none")/.test(
+    html
+  )
+)
   fail(
     'the dgmo-light wrapper is hidden — it is the no-stylesheet default and must never be'
   );
