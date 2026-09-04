@@ -13,7 +13,7 @@
     "@diagrammo/dgmo": "0.83.0",
     "astro": "^7.2.0",
     "astro-dgmo": "link:../..",
-    "remark-dgmo": "0.15.5"
+    "remark-dgmo": "0.15.6"
   },
   "pnpm": {
     "overrides": {
