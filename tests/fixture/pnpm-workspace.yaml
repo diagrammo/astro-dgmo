@@ -1,0 +1,21 @@
+# 🔴 This file exists to STOP pnpm walking up to the repo root. The fixture is
+# deliberately outside any workspace — it installs astro-dgmo as `link:../..`
+# and everything else from the REGISTRY, which is the whole point of an e2e
+# fixture. When the root gained a pnpm-workspace.yaml on 2026-09-09 for the
+# supply-chain settings, `pnpm install` here started resolving that as its
+# workspace root, found no `packages:` key, and refused with "No projects
+# matched the filters" — leaving no node_modules/astro-dgmo and failing the
+# build with `Cannot find module 'astro-dgmo'`. Four wrapper repos went red.
+#
+# The hardening is repeated rather than inherited, because inheriting is
+# exactly what breaks it.
+minimumReleaseAge: 1440
+trustPolicy: no-downgrade
+minimumReleaseAgeExclude:
+  - '@diagrammo/*'
+  - 'remark-dgmo'
+  - 'astro-dgmo'
+  - 'docusaurus-plugin-dgmo'
+  - 'fumadocs-dgmo'
+  - 'nextra-dgmo'
+  - 'vitepress-dgmo'
