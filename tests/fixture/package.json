@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@astrojs/markdown-remark": "^7.2.2",
-    "@diagrammo/dgmo": "0.84.0",
+    "@diagrammo/dgmo": "0.85.0",
     "astro": "^7.2.0",
     "astro-dgmo": "link:../..",
     "remark-dgmo": "0.15.7"
