@@ -13,8 +13,8 @@ importers:
   .:
     dependencies:
       remark-dgmo:
-        specifier: '>=0.15.7 <1'
-        version: 0.15.7(@diagrammo/dgmo@0.85.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        specifier: '>=0.15.8 <1'
+        version: 0.15.8(@diagrammo/dgmo@0.85.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
     devDependencies:
       '@astrojs/markdown-remark':
         specifier: ^7.3.1
@@ -3104,8 +3104,8 @@ packages:
   rehype-stringify@10.0.1:
     resolution: {integrity: sha512-k9ecfXHmIPuFVI61B9DeLPN0qFHfawM6RsuX48hoqlaKSF61RskNjSm1lI8PhBEM0MRdLxVVm4WmTqJQccH9mA==}
 
-  remark-dgmo@0.15.7:
-    resolution: {integrity: sha512-uLRl4U2RKrM35kTMTUgAwtNMedaUHERV+izmJKjDoX7qshJezhE3I3ruyw9hYZRCi64JzsTbgFYbZrpcSkU2qA==}
+  remark-dgmo@0.15.8:
+    resolution: {integrity: sha512-gv1NlHiAqZ+UZct1UPISyaaYctMl1hXjxMXe5dxJqJuwCTqkuxWKl130Wg+wlxjC3fdBADcVv45WBodzkiS5MQ==}
     engines: {node: '>=20.6'}
     peerDependencies:
       '@diagrammo/dgmo': '>=0.61.0 <1'
@@ -7130,7 +7130,7 @@ snapshots:
       hast-util-to-html: 9.0.5
       unified: 11.0.5
 
-  remark-dgmo@0.15.7(@diagrammo/dgmo@0.85.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.15.8(@diagrammo/dgmo@0.85.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
       '@diagrammo/dgmo': 0.85.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
