@@ -63,7 +63,8 @@
     "check:duplication": "jscpd ./src",
     "check:deps": "depcheck --ignores=''",
     "check:all": "pnpm format:check && pnpm check:deadcode && pnpm check:duplication && pnpm check:deps",
-    "prepublishOnly": "pnpm build && pnpm test"
+    "prepublishOnly": "pnpm build && pnpm test",
+    "prepare": "git config core.hooksPath .githooks 2>/dev/null || true"
   },
   "peerDependencies": {
     "@astrojs/markdown-remark": "^7.0.0",
