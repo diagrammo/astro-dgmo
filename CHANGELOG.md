@@ -3,6 +3,25 @@
 Releases before 0.7.0 are documented at
 https://github.com/diagrammo/astro-dgmo/releases
 
+## 0.11.8
+
+**Verified against `@diagrammo/dgmo` 0.85.0 and `remark-dgmo` 0.16.0.** In
+this package's manifest the `remark-dgmo` range moves to `>=0.16.0 <1`. That
+move is the release: an open range npm has already satisfied is never
+re-resolved, so the previous version was built and tested against whatever it
+happened to have installed rather than against what this workspace publishes.
+The `@diagrammo/dgmo` range moved to `>=0.85.0 <1` one release ago, which
+shipped without an entry here.
+
+What those two bring to a rendered page: a sequence diagram's participant
+groups can hold one group inside another, so a rack drawn inside a data centre
+comes out nested rather than silently flattened into two siblings — the old
+spelling parsed clean and drew the wrong picture. A group frame no longer sits
+flush against the canvas edge or gets cut by it. And a site that commits
+`remark-dgmo`'s reference cache no longer sees every entry's timestamp churn
+in the diff, because the fetch stamp is not written to the committed file any
+more.
+
 ## 0.11.6
 
 **Verified against `@diagrammo/dgmo` 0.84.0 and `remark-dgmo` 0.15.7.** In this
