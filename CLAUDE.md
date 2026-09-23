@@ -6,10 +6,9 @@ Shared wrapper contract: [`../remark-dgmo/WRAPPER-CONVENTIONS.md`](../remark-dgm
 
 ## Versions — read `package.json`, these drift
 
-- `remark-dgmo` `^0.14.0` — the same version all five wrappers are on (checked 2026-08-04)
-- peers: `@diagrammo/dgmo` `>=0.61.0 <1`, `astro` `^4 || ^5 || ^6 || ^7`, plus `@astrojs/markdown-remark` `^7` as an **optional** peer — optional because Astro 4-6 neither need nor ship it, and required in practice on Astro 7. The dgmo floor tracks remark-dgmo's own: it imports `@diagrammo/dgmo/live-link-resolve`, a subpath that first exists in dgmo 0.60.0
-- `tests/fixture/` pins both **exactly** (`0.14.0` / `0.60.0`) rather than by range: a caret would let CI silently build the Pages showcase against a `remark-dgmo` that predates live links, and the fence would render a reference card instead of the diagram
-- Caret on a `0.x` dep pins the **minor**, so every `remark-dgmo` minor needs an explicit bump here
+- `remark-dgmo` and the `@diagrammo/dgmo` peer are open `>=X <1` ranges, in step with the other four wrappers. The dgmo floor must never sit below the dgmo subpaths remark-dgmo imports
+- `astro` `^4 || ^5 || ^6 || ^7`, plus `@astrojs/markdown-remark` `^7` as an **optional** peer — optional because Astro 4-6 neither need nor ship it, and required in practice on Astro 7
+- `tests/fixture/` pins both **exactly** rather than by range, so CI can never build the Pages showcase against an older `remark-dgmo` or renderer. An open range never re-resolves on its own either — bump the ranges and the fixture pins on each release and check what the lockfile resolved
 
 ## Host specifics
 
@@ -23,7 +22,7 @@ Shared wrapper contract: [`../remark-dgmo/WRAPPER-CONVENTIONS.md`](../remark-dgm
 - **Client JS is inlined bytes, not an import.** `readFileSync(import.meta.resolve('remark-dgmo/client.js'))` at config-setup time. There is no Astro route hook, so the script self-attaches a `MutationObserver` on `<html>`.
 - 🔴 **`liveLink.refresh === 'render'` stays opt-in** — but the number usually quoted for it measures the wrong thing. "1 chunk / 7,990 gzipped bytes → 90 chunks / 634,199" counts bytes _emitted_, not bytes a reader downloads. Re-measured 2026-08-03 by walking the import graph of this fixture with the showcase composed in: **eager page JS 9,135 → 9,875 gzipped (+740 B)**, and 641 KB across 88 chunks reached only through a dynamic `import()`, with no `modulepreload` emitted for any of them. So the page-load cost is small; the 641 KB arrives only when a diagram has actually changed and is being redrawn. Still opt-in — it is a behaviour change and the 641 KB is real when it fires — but decide it on the +740, not on the 634 KB.
 - **The Pages showcase is the one build with it on**, via `LIVE_LINK_REFRESH=render` in `pages.yml`. Its own variable, deliberately not `PAGES_BASE`: the e2e build must keep exercising the default every adopter gets, which is what keeps `baseline-bundle-size.json` meaningful.
-- Legacy `astro-dgmo-*` class names are still emitted alongside `dgmo-*` via `legacyClassNames`. The code comment says "Removed in v0.4"; the package is on 0.8 and they are still there — the comment is stale, the behavior is current.
+- Legacy `astro-dgmo-*` class names are still emitted alongside `dgmo-*` via `legacyClassNames`. The code comment says "until v0.4"; the package is well past that and they are still there — the comment is stale, the behavior is current.
 
 ## Verify
 
