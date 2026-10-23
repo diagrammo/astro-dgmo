@@ -122,17 +122,26 @@ A -> B
 
 See the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo) for the full option matrix.
 
-## Live links (on by default)
+## <img src="https://diagrammo.app/icons/live-link.svg" width="20" height="20" alt=""> Live links (on by default)
 
-A fence can name a published [Diagrammo Cloud](https://diagrammo.app) diagram
-instead of carrying its own source, so the page stops going stale the day it is
-written:
+A **live link** is a diagram somebody shows on the web from the [Diagrammo app](https://diagrammo.app). The app marks it with an amber globe <img src="https://diagrammo.app/icons/live-link.svg" width="14" height="14" alt="amber globe">. Put its link in a fence and your page draws the diagram as its author last saved it — each time your site builds.
+
+**Get the link in the app** — either route copies it to your clipboard:
+
+- Open the diagram and press **Share** on the left rail (or **⌘E** / **Ctrl+E**), then **Show on the web** in the **Live link** row.
+- Or right-click the diagram in the file list and choose **Show and copy link**.
+
+To copy it again later, open the diagram and press the lit amber globe on the left rail.
+
+**Paste it into a `dgmo` fence**, on a line of its own:
 
 ````md
 ```dgmo
-live-link dgm_01HQ3RSTUV
+https://online.diagrammo.app/d/dgm_01M3PG3DQ6S89W7ZFM5Z06J1CD
 ```
 ````
+
+Once you know the id, `live-link dgm_01M3PG3DQ6S89W7ZFM5Z06J1CD` inside the fence does the same job.
 
 No configuration needed — this resolves out of the box. To stop your build
 fetching anything:
