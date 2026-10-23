@@ -181,7 +181,7 @@ integrations: [dgmo({ liveLink: { refresh: 'render' } })];
 ```
 
 The full behaviour, including what each kind of failure does to your build, is in
-the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo#live-links-on-by-default).
+the [`remark-dgmo` README](https://github.com/diagrammo/remark-dgmo#-live-links-on-by-default).
 
 ## Working reference site
 
