@@ -86,7 +86,7 @@
   },
   "devDependencies": {
     "@astrojs/markdown-remark": "^7.3.1",
-    "@diagrammo/dgmo": ">=0.96.0 <1",
+    "@diagrammo/dgmo": ">=0.97.0 <1",
     "@eslint/js": "^10.0.1",
     "@types/node": "^22.20.1",
     "astro": "^7.3.2",
