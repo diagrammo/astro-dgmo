@@ -33,7 +33,8 @@ REPO=astro-dgmo
 # Runs inside the gate worktree.
 run_checks() {
   # `pnpm test:e2e` (a whole fixture site build, with a non-frozen install
-  # from the registry) is left to CI, which still runs it after the push.
+  # from the registry) is left to CI, which runs it on every pull request and
+  # on a manual run, not on a push to main (diagrammo/diagrammo#1821).
   echo "→ install (frozen)"
   pnpm install --frozen-lockfile --prefer-offline --reporter=silent || {
     echo "✗ frozen install failed — the lockfile no longer matches package.json" >&2
