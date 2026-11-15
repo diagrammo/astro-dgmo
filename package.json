@@ -89,7 +89,7 @@
     "@diagrammo/dgmo": ">=0.98.0 <1",
     "@eslint/js": "^10.0.1",
     "@types/node": "^22.20.1",
-    "astro": "^7.3.2",
+    "astro": "^7.4.7",
     "depcheck": "^1.4.7",
     "eslint": "^10.10.0",
     "jscpd": "^4.2.5",
