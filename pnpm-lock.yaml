@@ -17,15 +17,15 @@ importers:
   .:
     dependencies:
       remark-dgmo:
-        specifier: '>=0.17.3 <1'
-        version: 0.17.3(@diagrammo/dgmo@0.98.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
+        specifier: '>=0.17.4 <1'
+        version: 0.17.4(@diagrammo/dgmo@0.99.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10))
     devDependencies:
       '@astrojs/markdown-remark':
         specifier: ^7.3.1
         version: 7.3.1
       '@diagrammo/dgmo':
-        specifier: '>=0.98.0 <1'
-        version: 0.98.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+        specifier: '>=0.99.0 <1'
+        version: 0.99.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@eslint/js':
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.10.0(jiti@2.7.0))
@@ -347,8 +347,8 @@ packages:
   '@dagrejs/graphlib@4.0.5':
     resolution: {integrity: sha512-7xrBTqIts3o+PMUZX97wSc+7TUbW+/rULzGNCTP6yooNVDXbzw4Wutg/H/xOutTB/c/k0YqOAavgPh4/Zk9PFA==}
 
-  '@diagrammo/dgmo@0.98.0':
-    resolution: {integrity: sha512-EMcdglZeX5BLRNzo63a4/kBdn9mQBXAmYWxyMpDrQUx0AbSC8QY0GP5x7dXG0KKdP0tQBHchSDjmEUVwP8I4dw==}
+  '@diagrammo/dgmo@0.99.0':
+    resolution: {integrity: sha512-89QgTPMMdLPtOhsSX98Rhrd/3MG1ozUg+azlIUIAGzbn0LrN+1oaGirRPd3kyhUNanNDV+zGjgg7iEZN2+tKBQ==}
     engines: {node: '>=20.6'}
     peerDependencies:
       '@codemirror/language': ^6.12.3
@@ -2660,10 +2660,6 @@ packages:
   longest-streak@3.1.0:
     resolution: {integrity: sha512-9Ri+o0JYgehTaVBBDoMqIl8GXtbWg711O3srftcHhZ0dqnETqLaoIK0x17fUw9rFSlK/0NlsKe0Ahhyl5pXE2g==}
 
-  lru-cache@11.5.2:
-    resolution: {integrity: sha512-4pfM1Ff0x50o0tQwb5ucw/RzNyD0/YJME6IVcStalZuMWxdt3sR3huStTtxz4PUmvZfRguvDejasvQ2kifR11g==}
-    engines: {node: 20 || >=22}
-
   lru-cache@11.5.3:
     resolution: {integrity: sha512-U4N8FgzmWxc8k1VH8Kr6lQg18U7Fjvby6wXHVRX/ZZ7IwWbRMgrRbP0Wrb5q5NVinryp4SQampHKdvtecItxUg==}
     engines: {node: 20 || >=22}
@@ -3221,11 +3217,11 @@ packages:
   rehype-stringify@10.0.1:
     resolution: {integrity: sha512-k9ecfXHmIPuFVI61B9DeLPN0qFHfawM6RsuX48hoqlaKSF61RskNjSm1lI8PhBEM0MRdLxVVm4WmTqJQccH9mA==}
 
-  remark-dgmo@0.17.3:
-    resolution: {integrity: sha512-ltwOrxLHvZVssooLZbBhh949n6sktaR/g/9z8+oyG0Mikvlv2T+tphBL9sTvoIMaRll/V/kwFYKpXuUuB0puzw==}
+  remark-dgmo@0.17.4:
+    resolution: {integrity: sha512-80b04kT2HTV8MeRQYm4fu4BYkPo/0Otlnx9J/Fw+5NWtY6znlDr8C3CSlBZ4F5uCfO+oQilDbXTOr9s6yjoOQg==}
     engines: {node: '>=20.6'}
     peerDependencies:
-      '@diagrammo/dgmo': '>=0.96.0 <1'
+      '@diagrammo/dgmo': '>=0.98.0 <1'
 
   remark-gfm@4.0.1:
     resolution: {integrity: sha512-1quofZ2RQ9EWdeN34S79+KExV1764+wCUGop5CPL1WGdD0ocPpu91lzPGbwWMECpEpd42kJGQwzRfyov9j4yNg==}
@@ -4207,11 +4203,12 @@ snapshots:
 
   '@dagrejs/graphlib@4.0.5': {}
 
-  '@diagrammo/dgmo@0.98.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
+  '@diagrammo/dgmo@0.99.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)':
     dependencies:
       '@dagrejs/dagre': 3.1.1
       d3-array: 3.2.4
       d3-cloud: 1.2.9
+      d3-format: 3.1.2
       d3-geo: 3.1.1
       d3-hierarchy: 3.1.2
       d3-scale: 4.0.2
@@ -6370,7 +6367,7 @@ snapshots:
       decimal.js: 10.6.0
       html-encoding-sniffer: 6.0.0
       is-potential-custom-element-name: 1.0.1
-      lru-cache: 11.5.2
+      lru-cache: 11.5.3
       parse5: 8.0.1
       saxes: 6.0.0
       symbol-tree: 3.2.4
@@ -6494,8 +6491,6 @@ snapshots:
   lodash@4.18.1: {}
 
   longest-streak@3.1.0: {}
-
-  lru-cache@11.5.2: {}
 
   lru-cache@11.5.3: {}
 
@@ -7399,9 +7394,9 @@ snapshots:
       hast-util-to-html: 9.0.5
       unified: 11.0.5
 
-  remark-dgmo@0.17.3(@diagrammo/dgmo@0.98.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
+  remark-dgmo@0.17.4(@diagrammo/dgmo@0.99.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)):
     dependencies:
-      '@diagrammo/dgmo': 0.98.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
+      '@diagrammo/dgmo': 0.99.0(@lezer/common@1.5.2)(@lezer/highlight@1.2.3)(@lezer/lr@1.4.10)
       '@lezer/common': 1.5.2
       '@lezer/highlight': 1.2.3
       '@lezer/lr': 1.4.10
